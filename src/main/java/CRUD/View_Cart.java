@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DB.Database;
+import Model.AddressModel;
 import Model.CartModel;
 import Model.DBUtils;
 
@@ -35,14 +36,14 @@ public class View_Cart extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String phone = request.getParameter("phone");
+			String sdt = request.getParameter("sdt");
 			Connection conn = Database.getConnection();
-			List<CartModel> list = DBUtils.LoadCart(conn, "0123456789");
+			List<CartModel> list = DBUtils.LoadCart(conn, sdt);
 			if(list == null){
 				System.out.print("Khong co du lieu");
 			}else {
 		        request.setAttribute("listCart", list);
-		        request.setAttribute("phone", "0123456789"); 
+		        request.setAttribute("sdt", sdt); 
 		        request.getRequestDispatcher("/Views/Form_Cart.jsp").forward(request, response);
 			}
 		}catch(Exception ex) {

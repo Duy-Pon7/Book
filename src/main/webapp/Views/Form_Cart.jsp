@@ -8,18 +8,24 @@
 <title>Giỏ hàng</title>
 <script>
 	function confirmDelete(id) {
-		if (confirm('Bạn có chắc chắn muốn xóa môn học này không?')) {
+		if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
 			// Nếu người dùng chọn OK, chuyển hướng đến servlet xóa môn học
 			window.location.href = '/Book/DeleteCart?id=' + id;
 		}
 	}
-	function submitPayment(total, phone) {
-		// Chuyển hướng đến servlet với các biến total và phone trong URL
-		if (confirm('Xác nhận thanh toán?')) {
-			window.location.href = '/Book/Pay?total=' + total + '&phone='
-					+ phone;
-		}
+	function submitPayment(tongGia, sdt) {
+		window.location.href = '/Book/ViewPay?tongGia=' + tongGia + '&sdt=' + sdt;
 
+	}
+	function showQtyChangeAlert(inputElement) {
+		const itemId = inputElement.getAttribute('data-id');
+		const itemSdt = inputElement.getAttribute('data-sdt');
+		const newQty = parseInt(inputElement.value, 10);
+		if (newQty == 0) {
+			confirmDelete(itemId);
+		} else {
+			window.location.href = '/Book/UpdateCart?soluong=' + newQty + '&id=' + itemId + '&sdt=' + itemSdt;
+		}
 	}
 </script>
 <link
@@ -44,7 +50,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!-- Duyệt qua danh sách giỏ hàng -->
 				<c:forEach var="item" items="${listCart}">
 					<tr>
 						<td>${item.getId()}</td>
@@ -54,7 +59,9 @@
 							alt="${item.getName()}" class="img-thumbnail"
 							style="width: 80px; height: auto;"></td>
 						<td>${item.getName()}</td>
-						<td>${item.getQty()}Cuốn</td>
+						<td><input type="number" class="qty-input form-control"
+							value="${item.getQty()}" min = 0 data-id="${item.getId()}" data-sdt="${sdt}"
+							onchange="showQtyChangeAlert(this)"/></td>
 						<td>${item.getPrice()}VND</td>
 						<td>${item.getTotal()}VND</td>
 						<td class="text-center">
@@ -67,19 +74,18 @@
 			<tfoot>
 				<tr>
 					<th colspan="6" class="text-end">Tổng cộng</th>
-					<th><c:set var="total" value="0" /> <!-- Khởi tạo biến tổng -->
+					<th><c:set var="total" value="0" />
 						<c:forEach var="item" items="${listCart}">
 							<c:set var="total" value="${total + item.getTotal()}" />
-							<!-- Cộng dồn giá trị -->
-						</c:forEach> ${total} VND <!-- Hiển thị tổng --></th>
+						</c:forEach> ${total} VND</th>
 				</tr>
 			</tfoot>
 		</table>
 		<div class="text-end mt-3">
-			<input type="hidden" name="total" value="${0123456789}" /> <a
-				href="shop.jsp" class="btn btn-secondary">Tiếp tục mua sắm</a>
+			<a href="Form_List.jsp" class="btn btn-secondary">Tiếp tục mua
+				sắm</a>
 			<button class="btn btn-primary"
-				onclick="submitPayment('${total}','${phone}')">Thanh toán</button>
+				onclick="submitPayment('${total}','${sdt}')">Thanh toán</button>
 		</div>
 	</div>
 

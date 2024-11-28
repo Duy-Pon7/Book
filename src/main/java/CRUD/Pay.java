@@ -32,20 +32,21 @@ public class Pay extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		float total = Float.parseFloat(request.getParameter("total"));
-		String phone = request.getParameter("phone");
+		float tongGia = Float.parseFloat(request.getParameter("tongGia"));
+		String sdt = request.getParameter("sdt");
+		String diaChi = request.getParameter("diaChi");
 		try {
 			Connection conn = Database.getConnection();
-			int maDon = DBUtils.Add_bill(conn, phone, total);
+			int maDon = DBUtils.Add_bill(conn, sdt, tongGia, diaChi);
 			boolean check = false;
 			if(maDon != -1) {
-				check = DBUtils.Add_InfBill(conn, phone, maDon);
+				check = DBUtils.Add_InfBill(conn, sdt, maDon);
 				if(check) {
-					check = DBUtils.DeleteAllCart(conn, phone);
+					check = DBUtils.DeleteAllCart(conn, sdt);
 				}
 			}
 			if(check) {
-				List<CartModel> list = DBUtils.LoadCart(conn, phone);
+				List<CartModel> list = DBUtils.LoadCart(conn, sdt);
 				if(list == null) {
 					System.out.print("khong co du lieu");
 				}else {
