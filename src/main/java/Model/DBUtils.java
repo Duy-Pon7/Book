@@ -154,6 +154,19 @@ public class DBUtils {
 			return false;
 		}
 	}
+	public static boolean Add1Address(Connection conn, String sdt, String Diachi) {
+		String query = "INSERT INTO DIACHI (SDT, DiaChi) VALUES (?, ?)";
+		try {
+			PreparedStatement ps = conn.prepareStatement(query);
+		    ps.setString(1, sdt);
+		    ps.setString(2, Diachi);
+		    int rowsAffected = ps.executeUpdate();
+		    return rowsAffected > 0;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
 	
 	public static List<OderModel> LoadInfOder(Connection conn, String phone) {
 		List<OderModel> list = new ArrayList<>();

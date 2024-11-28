@@ -89,4 +89,14 @@
     <servlet-name>Delete_Address</servlet-name>
     <url-pattern>/Delete_Address</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Add_Address</display-name>
+    <servlet-name>Add_Address</servlet-name>
+    <servlet-class>CRUD.Add_Address</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Add_Address</servlet-name>
+    <url-pattern>/Add_Address</url-pattern>
+  </servlet-mapping>
 </web-app>

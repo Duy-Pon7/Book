@@ -8,38 +8,35 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.Connection;
-import java.util.List;
 
 import DB.Database;
-import Model.CartModel;
 import Model.DBUtils;
 
 /**
- * Servlet implementation class Delete_Address
+ * Servlet implementation class Add_Address
  */
-@WebServlet("/DeleteAddress")
-public class Delete_Address extends HttpServlet {
+@WebServlet("/AddAddress")
+public class Add_Address extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Add_Address() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Delete_Address() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
 		String tongGia = request.getParameter("tongGia");
 		String sdt = request.getParameter("sdt");
+		String diaChi = request.getParameter("diaChi");
 		try {
 			Connection conn = Database.getConnection();
-			boolean check = DBUtils.DeleteAddress(conn, id);
+			boolean check = DBUtils.Add1Address(conn, sdt, diaChi);
 			if (check) {
 				response.sendRedirect(request.getContextPath() + "/ViewPay?sdt=" + URLEncoder.encode(sdt, "UTF-8")
 						+ "&tongGia=" + URLEncoder.encode(tongGia, "UTF-8"));
@@ -55,11 +52,9 @@ public class Delete_Address extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

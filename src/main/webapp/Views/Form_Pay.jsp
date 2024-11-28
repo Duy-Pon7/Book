@@ -21,13 +21,13 @@
     function closeModal() {
         document.getElementById('customModal').style.display = 'none';
     }
-    function submitNewAddress() {
+    function submitNewAddress(tongGia, sdt) {
         // Lấy giá trị từ input
         const newAddress = document.getElementById('newAddress').value;
 
         // Kiểm tra nếu giá trị không rỗng trước khi xử lý
         if (newAddress.trim() !== '') {
-            console.log('Địa chỉ vừa nhập:', newAddress);
+        	window.location.href = '/Book/AddAddress?tongGia=' + tongGia + '&sdt=' + sdt + '&diaChi=' + newAddress.trim();
             // Tiến hành xử lý khác, ví dụ gửi dữ liệu đến server hoặc hiển thị thông báo
         } else {
             alert('Vui lòng nhập địa chỉ!');
@@ -94,7 +94,7 @@
 		</form>
 		<button type="button" class="btn btn-secondary" onclick="closeModal()">Đóng</button>
 		<button type="button" class="btn btn-primary"
-			onclick="submitNewAddress()">Xác nhận</button>
+			onclick="submitNewAddress('${tongGia}','${sdt}')">Xác nhận</button>
 	</div>
 
 	<div class="container mt-5">
