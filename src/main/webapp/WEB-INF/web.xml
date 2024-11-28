@@ -19,4 +19,44 @@
     <servlet-name>Read</servlet-name>
     <url-pattern>/Read</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Form_Login</display-name>
+    <servlet-name>Form_Login</servlet-name>
+    <servlet-class>CRUD.Form_Login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Form_Login</servlet-name>
+    <url-pattern>/Form_Login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Form_Create</display-name>
+    <servlet-name>Form_Create</servlet-name>
+    <servlet-class>CRUD.Form_Create</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Form_Create</servlet-name>
+    <url-pattern>/Form_Create</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Form_Detail</display-name>
+    <servlet-name>Form_Detail</servlet-name>
+    <servlet-class>CRUD.Form_Detail</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Form_Detail</servlet-name>
+    <url-pattern>/Form_Detail</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddCart</display-name>
+    <servlet-name>AddCart</servlet-name>
+    <servlet-class>CRUD.AddCart</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddCart</servlet-name>
+    <url-pattern>/AddCart</url-pattern>
+  </servlet-mapping>
 </web-app>

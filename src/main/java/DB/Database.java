@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    private static final String DB_ServerName = "LAPTOP-USDT1527";
+    private static final String DB_ServerName = "LAPTOP-U4LKIFI9\\SQLEXPRESS";
     private static final String DB_login = "sa";
     private static final String DB_password = "123";
-    private static final String DB_databaseName = "Book";
+    private static final String DB_databaseName = "web_book";
     
     public static Connection getConnection() {
         try {
