@@ -1,12 +1,13 @@
 package CRUD;
 
 import DB.Database;
+import Model.Book;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,41 +19,39 @@ import java.util.List;
 
 @WebServlet("/read")
 public class Read extends HttpServlet {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Book> books = new ArrayList<>();
-        
-        try (Connection conn = Database.getConnection()) {
-            // Truy vấn dữ liệu từ bảng sách
-            String sql = "SELECT id, name, original_price, sale_price, description, image FROM books";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            
-            // Đọc kết quả và thêm vào danh sách sách
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                double originalPrice = rs.getDouble("original_price");
-                double salePrice = rs.getDouble("sale_price");
-                String description = rs.getString("description");
-                String image = rs.getString("image");
-                System.out.println(image);
-                // Tạo đối tượng Book và thêm vào danh sách
-                books.add(new Book(id, name, originalPrice, salePrice, description, image));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        // Lưu danh sách sách vào request
-        request.setAttribute("books", books);
-        
-        // Chuyển tiếp yêu cầu tới JSP để hiển thị
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Views/Form_List.jsp");
-        dispatcher.forward(request, response);
-    }
+		List<Book> books = new ArrayList<>();
+
+		try (Connection conn = Database.getConnection()) {
+			String sql = "SELECT MaSach, TenSach, TenLoai, TacGia, NXB, MoTa, Image, SoLuong, GiaGoc, GiaBan FROM SACH";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("MaSach");
+				String name = rs.getString("TenSach");
+				String category = rs.getString("TenLoai");
+				String author = rs.getString("TacGia");
+				String publisher = rs.getString("NXB");
+				String description = rs.getString("MoTa");
+				String image = rs.getString("Image");
+				int quantity = rs.getInt("SoLuong");
+				double originalPrice = rs.getDouble("GiaGoc");
+				double salePrice = rs.getDouble("GiaBan");
+				System.out.println(image);
+
+				books.add(new Book(id, name, category, author, publisher, description, image, quantity, originalPrice,
+						salePrice));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		request.setAttribute("books", books);
+
+		request.getRequestDispatcher("Views/Form_List.jsp").forward(request, response);
+	}
 }
