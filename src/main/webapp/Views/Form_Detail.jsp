@@ -21,7 +21,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
 		<div class="container-fluid">
-			<a class="navbar-brand text-danger" href="#"><b>DreamBooks</b></a>
+			<a class="btn" onclick="home()" style="font-size: 24px;"><b>DreamBooks</b></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -50,7 +50,7 @@
 
 				</ul>
 				<form class="d-flex">
-					<a class="btn" href="#"> <svg
+					<a class="btn" onclick="FormCart('${SDT}', '${pass}')"> <svg
 							xmlns="http://www.w3.org/2000/svg" fill="#737373"
 							viewBox="0 0 24 24" width="24px" height="24px">    <path
 								d="M 4.4140625 1.9960938 L 1.0039062 2.0136719 L 1.0136719 4.0136719 L 3.0839844 4.0039062 L 6.3789062 11.908203 L 5.1816406 13.824219 C 4.7816406 14.464219 4.7609531 15.272641 5.1269531 15.931641 C 5.4929531 16.590641 6.1874063 17 6.9414062 17 L 19 17 L 19 15 L 6.9414062 15 L 6.8769531 14.882812 L 8.0527344 13 L 15.521484 13 C 16.248484 13 16.917531 12.604703 17.269531 11.970703 L 20.873047 5.4863281 C 21.046047 5.1763281 21.041328 4.7981875 20.861328 4.4921875 C 20.681328 4.1871875 20.352047 4 19.998047 4 L 5.25 4 L 4.4140625 1.9960938 z M 6.0820312 6 L 18.298828 6 L 15.521484 11 L 8.1660156 11 L 6.0820312 6 z M 7 18 A 2 2 0 0 0 5 20 A 2 2 0 0 0 7 22 A 2 2 0 0 0 9 20 A 2 2 0 0 0 7 18 z M 17 18 A 2 2 0 0 0 15 20 A 2 2 0 0 0 17 22 A 2 2 0 0 0 19 20 A 2 2 0 0 0 17 18 z" /></svg>
@@ -72,7 +72,7 @@
 			style="background-color: #ffffff">
 			<!-- Hiển thị hình ảnh từ thuộc tính "image" -->
 			<img
-				src="<%= request.getContextPath() %>/images/<c:out value='${book.image}' />"
+				src="<%= request.getContextPath() %>/Images/<c:out value='${book.image}' />"
 				alt="<c:out value='${book.name}' />" class="card-img-top" />
 		</div>
 		<div class="col-sm-5 border rounded-3 m-2"
@@ -169,7 +169,7 @@
 					<h4 class="text-light">dreambook.com</h4>
 				</div>
 			</div>
-			<p class="text-light">ádlfkjá;dlfja;sldkf.</p>
+			<p class="text-light">123 Hung Vuong.</p>
 			<div class="col-sm-2"></div>
 		</div>
 		<div class="col-sm-3 mt-5"></div>
@@ -223,19 +223,42 @@
 	    } else {
 	      alert('Book ID: ' + bookId + '\nQuantity: ' + quantity + '\nPhone number is not available.');
 	    }
-
+	    var btn = "atc";
 	    // Redirect to a new servlet with the bookId, quantity, and sdt as query parameters
-	    selectBook(bookId, quantity, sdt);
+	    selectBook(bookId, quantity, sdt, btn);
 	  });
+	// Add event listener to the "Add to Cart" button
+	  document.getElementById('buy-now').addEventListener('click', function() {
+	    // Get the quantity from the input field
+	    var quantity = document.getElementById('quantity').value; // Quantity
 
+	    // Show the alert with book ID, quantity, and SDT
+	    if (sdt) {
+	      alert('Book ID: ' + bookId + '\nQuantity: ' + quantity + '\nPhone: ' + sdt);
+	    } else {
+	      alert('Book ID: ' + bookId + '\nQuantity: ' + quantity + '\nPhone number is not available.');
+	    }
+	    var btn = "bn";
+	    // Redirect to a new servlet with the bookId, quantity, and sdt as query parameters
+	    selectBook(bookId, quantity, sdt, btn);
+	  });
+		
 	  // Function to redirect to a new servlet with query parameters
-	  function selectBook(bookId, quantity, sdt) {
+	  function selectBook(bookId, quantity, sdt, btn) {
 	    // Build the URL with query parameters
-	    var url = '/Book/addcart?bookId=' + bookId + '&quantity=' + quantity + '&sdt=' + encodeURIComponent(sdt);
+	    var url = '/Book/addcart?bookId=' + bookId + '&quantity=' + quantity + '&sdt=' + encodeURIComponent(sdt) + '&btn=' + btn;
 
 	    // Redirect to the new servlet
 	    window.location.href = url;
 	  }
+	  function FormCart(sdt, pass) {
+			window.location.href = '/Book/ViewCart?sdt=' + sdt + '&pass=' + pass;
+
+		}
+	  function home() {
+			window.location.href = '/Book/read';
+		}
+	  
 	</script>
 </body>
 </html>

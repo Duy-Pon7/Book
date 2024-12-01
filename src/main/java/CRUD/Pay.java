@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.util.List;
 
@@ -46,16 +47,12 @@ public class Pay extends HttpServlet {
 				}
 			}
 			if(check) {
-				List<CartModel> list = DBUtils.LoadCart(conn, sdt);
-				if(list == null) {
-					System.out.print("khong co du lieu");
-				}else {
-					request.setAttribute("listCart", list);
-					response.sendRedirect(request.getContextPath() + "/ViewCart");
-				}
+				request.setAttribute("sdt", sdt); 
+				response.sendRedirect(request.getContextPath() + "/ViewCart?sdt=" + URLEncoder.encode(sdt, "UTF-8"));
 			}else {
 				request.setAttribute("errorMessage", "Thanh toán không thành công!");
-				response.sendRedirect(request.getContextPath() + "/ViewCart");
+				request.setAttribute("sdt", sdt); 
+				response.sendRedirect(request.getContextPath() + "/ViewCart?sdt=" + URLEncoder.encode(sdt, "UTF-8"));
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();

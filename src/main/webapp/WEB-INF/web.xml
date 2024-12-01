@@ -99,4 +99,14 @@
     <servlet-name>Add_Address</servlet-name>
     <url-pattern>/Add_Address</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Filter</display-name>
+    <servlet-name>Filter</servlet-name>
+    <servlet-class>CRUD.Filter</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Filter</servlet-name>
+    <url-pattern>/Filter</url-pattern>
+  </servlet-mapping>
 </web-app>

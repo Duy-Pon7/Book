@@ -40,14 +40,8 @@ public class Update_Cart extends HttpServlet {
 			Connection conn = Database.getConnection();
 			boolean check = DBUtils.UpdateCart(conn, id, soluong);
 			if(check) {
-				List<CartModel> list = DBUtils.LoadCart(conn, sdt);
-				if(list == null) {
-					System.out.print("khong co du lieu");
-				}else {
-					request.setAttribute("listCart", list);
-					request.setAttribute("sdt", sdt); 
-					response.sendRedirect(request.getContextPath() + "/ViewCart?sdt=" + URLEncoder.encode(sdt, "UTF-8"));
-				}
+				request.setAttribute("sdt", sdt); 
+				response.sendRedirect(request.getContextPath() + "/ViewCart?sdt=" + URLEncoder.encode(sdt, "UTF-8"));
 			}else {
 				request.setAttribute("errorMessage", "Sửa không thành công!");
 				response.sendRedirect(request.getContextPath() + "/ViewCart");

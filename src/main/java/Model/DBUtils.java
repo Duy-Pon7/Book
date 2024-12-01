@@ -3,12 +3,44 @@ package Model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import DB.Database;
+
 import java.sql.Statement;  // Đảm bảo bạn đã import lớp Statement
 
 
 public class DBUtils {
+	public static List<Book> LoadHomeList(Connection conn){
+		List<Book> books = new ArrayList<>();
+		try{
+			String sql = "SELECT MaSach, TenSach, TenLoai, TacGia, NXB, MoTa, Image, SoLuong, GiaGoc, GiaBan FROM SACH";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("MaSach");
+				String name = rs.getString("TenSach");
+				String category = rs.getString("TenLoai");
+				String author = rs.getString("TacGia");
+				String publisher = rs.getString("NXB");
+				String description = rs.getString("MoTa");
+				String image = rs.getString("Image");
+				int quantity = rs.getInt("SoLuong");
+				double originalPrice = rs.getDouble("GiaGoc");
+				double salePrice = rs.getDouble("GiaBan");
+				System.out.println(image);
+
+				books.add(new Book(id, name, category, author, publisher, description, image, quantity, originalPrice,
+						salePrice));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return books;
+	}
 	public static List<CartModel> LoadCart(Connection conn, String phone) {
 		List<CartModel> list = new ArrayList<>();
 		String query = "SELECT g.Id, s.Image, s.TenSach, g.SoLuong, s.GiaBan, (g.SoLuong * s.GiaBan) AS TongTien "
