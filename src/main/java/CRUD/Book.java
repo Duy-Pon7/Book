@@ -1,44 +1,110 @@
 package CRUD;
 
 public class Book {
-    private int id;
-    private String name;
-    private double originalPrice;
-    private double salePrice;
-    private String description;
-    private String image;
+    private int maSach;          // ID sách
+    private String tenSach;      // Tên sách
+    private String tenLoai;      // Loại sách
+    private String tacGia;       // Tác giả
+    private String nxb;          // Nhà xuất bản
+    private String moTa;         // Mô tả
+    private String image;        // Đường dẫn ảnh
+    private int soLuong;         // Số lượng tồn kho
+    private double giaGoc;       // Giá gốc
+    private double giaBan;       // Giá bán
 
-    public Book(int id, String name, double originalPrice, double salePrice, String description, String image) {
-        this.id = id;
-        this.name = name;
-        this.originalPrice = originalPrice;
-        this.salePrice = salePrice;
-        this.description = description;
+    // Constructor đầy đủ
+    public Book(int maSach, String tenSach, String tenLoai, String tacGia, String nxb, 
+                String moTa, String image, int soLuong, double giaGoc, double giaBan) {
+        this.maSach = maSach;
+        this.tenSach = tenSach;
+        this.tenLoai = tenLoai;
+        this.tacGia = tacGia;
+        this.nxb = nxb;
+        this.moTa = moTa;
         this.image = image;
+        this.soLuong = soLuong;
+        this.giaGoc = giaGoc;
+        this.giaBan = giaBan;
     }
 
-    // Getter and setter methods
-    public int getId() {
-        return id;
+    // Getter và Setter
+    public int getMaSach() {
+        return maSach;
     }
 
-    public String getName() {
-        return name;
+    public void setMaSach(int maSach) {
+        this.maSach = maSach;
     }
 
-    public double getOriginalPrice() {
-        return originalPrice;
+    public String getTenSach() {
+        return tenSach;
     }
 
-    public double getSalePrice() {
-        return salePrice;
+    public void setTenSach(String tenSach) {
+        this.tenSach = tenSach;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTenLoai() {
+        return tenLoai;
+    }
+
+    public void setTenLoai(String tenLoai) {
+        this.tenLoai = tenLoai;
+    }
+
+    public String getTacGia() {
+        return tacGia;
+    }
+
+    public void setTacGia(String tacGia) {
+        this.tacGia = tacGia;
+    }
+
+    public String getNxb() {
+        return nxb;
+    }
+
+    public void setNxb(String nxb) {
+        this.nxb = nxb;
+    }
+
+    public String getMoTa() {
+        return moTa;
+    }
+
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
     }
 
     public String getImage() {
         return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public double getGiaGoc() {
+        return giaGoc;
+    }
+
+    public void setGiaGoc(double giaGoc) {
+        this.giaGoc = giaGoc;
+    }
+
+    public double getGiaBan() {
+        return giaBan;
+    }
+
+    public void setGiaBan(double giaBan) {
+        this.giaBan = giaBan;
     }
 }

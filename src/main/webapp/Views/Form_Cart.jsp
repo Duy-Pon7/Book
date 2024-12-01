@@ -16,8 +16,7 @@
 	function submitPayment(total, phone) {
 		// Chuyển hướng đến servlet với các biến total và phone trong URL
 		if (confirm('Xác nhận thanh toán?')) {
-			window.location.href = '/Book/Pay?total=' + total + '&phone='
-					+ phone;
+			window.location.href = '/Book/Pay?total=' + total + '&phone=' + phone;
 		}
 
 	}
@@ -76,8 +75,7 @@
 			</tfoot>
 		</table>
 		<div class="text-end mt-3">
-			<input type="hidden" name="total" value="${0123456789}" /> <a
-				href="shop.jsp" class="btn btn-secondary">Tiếp tục mua sắm</a>
+		 	<a href="Form_List.jsp" class="btn btn-secondary">Tiếp tục mua sắm</a>
 			<button class="btn btn-primary"
 				onclick="submitPayment('${total}','${phone}')">Thanh toán</button>
 		</div>
