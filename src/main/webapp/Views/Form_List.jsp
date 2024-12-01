@@ -21,7 +21,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#"><b>DreamBooks</b></a>
+			<a class="navbar-brand text-primary" href="/Book/read"><b>DreamBooks</b></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -30,21 +30,6 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link" href="#">Sách
-							tiếng Việt</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">English
-							Books</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Sách giáo
-							khoa </a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Tiểu học</a></li>
-							<li><a class="dropdown-item" href="#">THCS</a></li>
-							<li><a class="dropdown-item" href="#">THPT</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Đại học</a></li>
-						</ul></li>
 					<li class="nav-item"><input class="form-control me-2"
 						type="search" placeholder="Tìm kiếm sản phẩm" aria-label="Search"></li>
 
