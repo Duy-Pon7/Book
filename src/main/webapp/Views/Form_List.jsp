@@ -21,7 +21,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#"><b>DreamBooks</b></a>
+			<a class="navbar-brand text-primary" href="/Book/read"><b>DreamBooks</b></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -30,27 +30,12 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link" href="#">Sách
-							tiếng Việt</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">English
-							Books</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Sách giáo
-							khoa </a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Tiểu học</a></li>
-							<li><a class="dropdown-item" href="#">THCS</a></li>
-							<li><a class="dropdown-item" href="#">THPT</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Đại học</a></li>
-						</ul></li>
 					<li class="nav-item"><input class="form-control me-2"
 						type="search" placeholder="Tìm kiếm sản phẩm" aria-label="Search"></li>
 
 				</ul>
 				<form class="d-flex">
-					<a class="btn" href="#"> <svg
+					<a class="btn" onclick="FormCart('${SDT}')"> <svg
 							xmlns="http://www.w3.org/2000/svg" fill="#737373"
 							viewBox="0 0 24 24" width="24px" height="24px">    <path
 								d="M 4.4140625 1.9960938 L 1.0039062 2.0136719 L 1.0136719 4.0136719 L 3.0839844 4.0039062 L 6.3789062 11.908203 L 5.1816406 13.824219 C 4.7816406 14.464219 4.7609531 15.272641 5.1269531 15.931641 C 5.4929531 16.590641 6.1874063 17 6.9414062 17 L 19 17 L 19 15 L 6.9414062 15 L 6.8769531 14.882812 L 8.0527344 13 L 15.521484 13 C 16.248484 13 16.917531 12.604703 17.269531 11.970703 L 20.873047 5.4863281 C 21.046047 5.1763281 21.041328 4.7981875 20.861328 4.4921875 C 20.681328 4.1871875 20.352047 4 19.998047 4 L 5.25 4 L 4.4140625 1.9960938 z M 6.0820312 6 L 18.298828 6 L 15.521484 11 L 8.1660156 11 L 6.0820312 6 z M 7 18 A 2 2 0 0 0 5 20 A 2 2 0 0 0 7 22 A 2 2 0 0 0 9 20 A 2 2 0 0 0 7 18 z M 17 18 A 2 2 0 0 0 15 20 A 2 2 0 0 0 17 22 A 2 2 0 0 0 19 20 A 2 2 0 0 0 17 18 z" /></svg>
@@ -77,7 +62,7 @@
 					<div class="col-sm-4">
 						<div class="card m-2 btn" style="width: 14rem;"
 							onclick="selectBook('${book.id}')">
-							<img src="<%= request.getContextPath() %>/images/${book.image}"
+							<img src="<%= request.getContextPath() %>/Images/${book.image}"
 								alt="${book.name}" class="card-img-top">
 							<div class="card-body">
 								<h5 class="card-title">${book.name}</h5>
@@ -170,6 +155,10 @@
 	function selectBook(bookId) {
 	    // Điều hướng tới servlet với bookId dưới dạng query parameter
 		window.location.href = `/Book/form_detail?bookId=` + bookId;
+
+	}
+	function FormCart(sdt) {
+		window.location.href = '/Book/ViewCart?sdt=' + sdt;
 
 	}
 	</script>

@@ -6,24 +6,23 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Connection;
-import java.util.List;
 
 import DB.Database;
-import Model.CartModel;
 import Model.DBUtils;
 
 /**
- * Servlet implementation class Delete_Cart
+ * Servlet implementation class Add_Address
  */
-@WebServlet("/DeleteCart")
-public class Delete_Cart extends HttpServlet {
+@WebServlet("/AddAddress")
+public class Add_Address extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Delete_Cart() {
+    public Add_Address() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,28 +31,24 @@ public class Delete_Cart extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
+		String tongGia = request.getParameter("tongGia");
 		String sdt = request.getParameter("sdt");
+		String diaChi = request.getParameter("diaChi");
 		try {
 			Connection conn = Database.getConnection();
-			boolean check = DBUtils.Delete1Cart(conn, id);
-			if(check) {
-				List<CartModel> list = DBUtils.LoadCart(conn, sdt);
-				if(list == null) {
-					System.out.print("khong co du lieu");
-				}else {
-					request.setAttribute("listCart", list);
-					request.setAttribute("sdt", "0987654321"); 
-					response.sendRedirect(request.getContextPath() + "/ViewCart");
-				}
-			}else {
+			boolean check = DBUtils.Add1Address(conn, sdt, diaChi);
+			if (check) {
+				response.sendRedirect(request.getContextPath() + "/ViewPay?sdt=" + URLEncoder.encode(sdt, "UTF-8")
+						+ "&tongGia=" + URLEncoder.encode(tongGia, "UTF-8"));
+
+			} else {
 				request.setAttribute("errorMessage", "Xoá không thành công!");
-				response.sendRedirect(request.getContextPath() + "/ViewCart");
+				response.sendRedirect(request.getContextPath() + "/ViewPay?sdt=" + URLEncoder.encode(sdt, "UTF-8")
+				+ "&tongGia=" + URLEncoder.encode(tongGia, "UTF-8"));
 			}
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
 	}
 
 	/**

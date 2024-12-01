@@ -10,20 +10,21 @@ import java.sql.Connection;
 import java.util.List;
 
 import DB.Database;
+import Model.AddressModel;
 import Model.CartModel;
 import Model.DBUtils;
 
 /**
- * Servlet implementation class Delete_Cart
+ * Servlet implementation class View_Pay
  */
-@WebServlet("/DeleteCart")
-public class Delete_Cart extends HttpServlet {
+@WebServlet("/ViewPay")
+public class View_Pay extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Delete_Cart() {
+    public View_Pay() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,28 +33,24 @@ public class Delete_Cart extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		String sdt = request.getParameter("sdt");
 		try {
+			String sdt = request.getParameter("sdt");
+			String tongGia = request.getParameter("tongGia");
 			Connection conn = Database.getConnection();
-			boolean check = DBUtils.Delete1Cart(conn, id);
-			if(check) {
-				List<CartModel> list = DBUtils.LoadCart(conn, sdt);
-				if(list == null) {
-					System.out.print("khong co du lieu");
-				}else {
-					request.setAttribute("listCart", list);
-					request.setAttribute("sdt", "0987654321"); 
-					response.sendRedirect(request.getContextPath() + "/ViewCart");
-				}
+			List<AddressModel> list1 = DBUtils.LoadAdress(conn, sdt);
+			List<CartModel> list = DBUtils.LoadCart(conn, sdt);
+			if(list == null || list1 == null){
+				System.out.print("Khong co du lieu");
 			}else {
-				request.setAttribute("errorMessage", "Xoá không thành công!");
-				response.sendRedirect(request.getContextPath() + "/ViewCart");
+		        request.setAttribute("listAddress", list1);
+		        request.setAttribute("listCart", list);
+		        request.setAttribute("sdt", sdt); 
+		        request.setAttribute("tongGia", tongGia); 
+		        request.getRequestDispatcher("/Views/Form_Pay.jsp").forward(request, response);
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
-		
 	}
 
 	/**
