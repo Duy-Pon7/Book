@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.List"%>
 <%
 String sdt = (String) session.getAttribute("SDT");
 if (sdt == null) {
@@ -17,6 +18,26 @@ if (sdt == null) {
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
+<style>
+#suggestionsList {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    width: 100%; /* Chiều rộng bằng với phần tử cha */
+}
+
+#suggestionsList li {
+    list-style: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+#suggestionsList li:hover {
+    background-color: #f0f0f0;
+}
+</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
@@ -45,9 +66,12 @@ if (sdt == null) {
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="#">Đại học</a></li>
 						</ul></li>
-					<li class="nav-item"><input class="form-control me-2"
-						type="search" placeholder="Tìm kiếm sản phẩm" aria-label="Search"></li>
-
+					<div class="nav-item" style="position: relative;">
+						<input class="form-control me-2" type="search" id="searchInput"
+							placeholder="Tìm kiếm sản phẩm" aria-label="Search"
+							value="${search != null && search != '' ? search : ''}">
+						<ul id="suggestionsList"></ul>
+					</div>
 				</ul>
 				<form class="d-flex">
 					<a class="btn" onclick="FormCart('${SDT}', '${pass}')"> <svg
@@ -154,7 +178,7 @@ if (sdt == null) {
 			</div>
 		</div>
 	</div>
-	<nav  aria-label="Page navigation example">
+	<nav aria-label="Page navigation example">
 		<ul class="pagination">
 			<li class="page-item"><a class="page-link" href="#">Previous</a></li>
 			<li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -253,11 +277,74 @@ if (sdt == null) {
 		    const nhaXuatBan = document.querySelector('input[name="supplier"]:checked')?.value || "empty"	    
 		    // Lấy giá trị của tác giả từ các radio button
 		    const gia = document.querySelector('input[name="price"]:checked')?.value || "empty";
+		 	// Lấy giá trị từ ô tìm kiếm
+		    const searchValue = document.getElementById("searchInput").value || "empty";
 		    // Chuyển hướng đến URL với các tham số
 		    window.location.href = '/Book/read?theLoai=' + encodeURIComponent(theLoai) +
 		                          '&nxb=' + encodeURIComponent(nhaXuatBan) +
-		                          '&gia=' + encodeURIComponent(gia); 
+		                          '&gia=' + encodeURIComponent(gia) + '&search=' + encodeURIComponent(searchValue); 
 		}
+		const searchInput = document.getElementById("searchInput");
+        const suggestionsList = document.getElementById("suggestionsList");
+
+     	// Chuyển danh sách từ JSP sang JavaScript
+        const suggestions = [];
+        <c:forEach var="suggestion" items="${uniqueName}">
+            suggestions.push("${suggestion}");
+        </c:forEach>
+
+        // Hàm hiển thị gợi ý
+        function showSuggestions(value) {
+            suggestionsList.innerHTML = ""; // Xóa gợi ý cũ
+            if (!value.trim()) {
+                suggestionsList.style.display = "none"; // Ẩn nếu chuỗi rỗng
+                return;
+            }
+
+            const filteredSuggestions = suggestions.filter(item => 
+                item.toLowerCase().includes(value.toLowerCase())
+            );
+
+            if (filteredSuggestions.length > 0) {
+                filteredSuggestions.forEach(suggestion => {
+                    const li = document.createElement("li");
+                    li.textContent = suggestion;
+                    
+                    // Gắn sự kiện click
+                    li.addEventListener("click", () => {
+                        handleSuggestionClick(suggestion);
+                    });
+
+                    suggestionsList.appendChild(li);
+                });
+                suggestionsList.style.display = "block"; // Hiển thị danh sách
+            } else {
+                suggestionsList.style.display = "none";
+            }
+        }
+        function handleSuggestionClick(selectedValue) {
+            searchInput.value = selectedValue; // Gắn giá trị vào ô tìm kiếm
+            suggestionsList.style.display = "none"; // Ẩn gợi ý
+            searchInput.focus(); // Đưa focus lại vào ô tìm kiếm
+        }
+
+        // Lắng nghe sự kiện nhập liệu
+        searchInput.addEventListener("input", (e) => {
+            const value = e.target.value;
+            showSuggestions(value);
+        });
+
+        // Xử lý click bên ngoài để ẩn danh sách
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest(".nav-item")) {
+                suggestionsList.style.display = "none";
+            }
+        });
+		document.getElementById('searchInput').addEventListener('keypress', function(event) {
+		    if (event.key === 'Enter') {
+		    	filterResults();
+		    }
+		});
 	</script>
 </body>
 </html>

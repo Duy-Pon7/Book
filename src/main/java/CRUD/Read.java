@@ -28,6 +28,7 @@ public class Read extends HttpServlet {
 		String theLoai = request.getParameter("theLoai");
 		String nxb = request.getParameter("nxb");
 		String gia = request.getParameter("gia");
+		String search = request.getParameter("search");
 		float giaMin = -1.0f;
 		float giaMax = -1.0f;
 		if (gia != null && !"empty".equals(gia)) {
@@ -45,12 +46,14 @@ public class Read extends HttpServlet {
 			StringBuilder sqlBuilder = new StringBuilder("SELECT MaSach, TenSach, TenLoai, TacGia, NXB, MoTa, Image, SoLuong, GiaGoc, GiaBan FROM SACH WHERE 1=1");
 			if (theLoai != null && !"empty".equals(theLoai)) { sqlBuilder.append(" AND TenLoai = ?");}
 			if (nxb != null && !"empty".equals(nxb)) { sqlBuilder.append(" AND NXB = ?");}
+			if (search != null && !"empty".equals(search)) { sqlBuilder.append(" AND TenSach = ?");}
 			if (giaMin != -1.0f) { sqlBuilder.append(" AND GiaBan >= ?");}
 			if (giaMax != -1.0f) { sqlBuilder.append(" AND GiaBan <= ?");}
 			PreparedStatement ps = conn.prepareStatement( sqlBuilder.toString());
 			int paramIndex = 1;
 			if (theLoai != null && !"empty".equals(theLoai)) { ps.setString(paramIndex++, theLoai);}
-			if (nxb != null && !"empty".equals(nxb)) { ps.setString(paramIndex++, nxb);}		
+			if (nxb != null && !"empty".equals(nxb)) { ps.setString(paramIndex++, nxb);}
+			if (search != null && !"empty".equals(search)) { ps.setString(paramIndex++, search);}
 			if (giaMin != -1.0f) { ps.setDouble(paramIndex++, giaMin);}
 			if (giaMax != -1.0f) { ps.setDouble(paramIndex++, giaMax);}
 			ResultSet rs = ps.executeQuery();
@@ -87,6 +90,7 @@ public class Read extends HttpServlet {
 		request.setAttribute("theLoai", theLoai);
 		request.setAttribute("nxb", nxb);
 		request.setAttribute("gia", gia);
+		request.setAttribute("search", search);
 		request.getRequestDispatcher("Views/Form_List.jsp").forward(request, response);
 	}
 }
