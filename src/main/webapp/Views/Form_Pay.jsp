@@ -111,9 +111,9 @@
 					<input type="radio" class="btn-check" name="address"
 						id="address${diaChi.getId()}" autocomplete="off"
 						onclick="showSelectedId(${diaChi.getId()})"> <label
-						class="btn btn-outline-info w-100 p-3 d-flex flex-column justify-content-center"
+						class="btn btn-outline-secondary w-100 p-3 d-flex flex-column justify-content-center"
 						for="address${diaChi.getId()}"> <span
-						style="color: black;">Địa chỉ: ${diaChi.getDiaChi()}</span>
+						>Địa chỉ: ${diaChi.getDiaChi()}</span>
 						<button type="button" class="btn btn-outline-danger btn-sm mt-2" onclick="deleteAddress('${diaChi.getId()}','${tongGia}','${sdt}')">Xóa</button>
 					</label>
 				</div>
