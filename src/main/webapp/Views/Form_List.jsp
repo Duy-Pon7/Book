@@ -25,15 +25,13 @@ if (sdt == null) {
     background-color: white;
     border: 1px solid #ccc;
     z-index: 1000;
-    width: 100%; /* Chiều rộng bằng với phần tử cha */
+    width: 100%;
 }
-
 #suggestionsList li {
     list-style: none;
     padding: 8px;
     cursor: pointer;
 }
-
 #suggestionsList li:hover {
     background-color: #f0f0f0;
 }
