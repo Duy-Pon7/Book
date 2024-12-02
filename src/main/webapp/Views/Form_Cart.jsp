@@ -7,14 +7,17 @@
 <meta charset="UTF-8">
 <title>Giỏ hàng</title>
 <script>
-	function confirmDelete(id) {
+	function confirmDelete(id, sdt) {
 		if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
-			// Nếu người dùng chọn OK, chuyển hướng đến servlet xóa môn học
-			window.location.href = '/Book/DeleteCart?id=' + id;
+			window.location.href = '/Book/DeleteCart?id=' + id + '&sdt=' + sdt;
 		}
 	}
+	function home() {
+		window.location.href = '/Book/read';
+	}
 	function submitPayment(tongGia, sdt) {
-		window.location.href = '/Book/ViewPay?tongGia=' + tongGia + '&sdt=' + sdt;
+		window.location.href = '/Book/ViewPay?tongGia=' + tongGia + '&sdt='
+				+ sdt;
 
 	}
 	function showQtyChangeAlert(inputElement) {
@@ -22,9 +25,10 @@
 		const itemSdt = inputElement.getAttribute('data-sdt');
 		const newQty = parseInt(inputElement.value, 10);
 		if (newQty == 0) {
-			confirmDelete(itemId);
+			confirmDelete(itemId, itemSdt);
 		} else {
-			window.location.href = '/Book/UpdateCart?soluong=' + newQty + '&id=' + itemId + '&sdt=' + itemSdt;
+			window.location.href = '/Book/UpdateCart?soluong=' + newQty
+					+ '&id=' + itemId + '&sdt=' + itemSdt;
 		}
 	}
 </script>
@@ -37,57 +41,67 @@
 <body>
 	<div class="container mt-5">
 		<h1 class="text-center mb-4">Giỏ hàng của bạn</h1>
-		<table class="table table-bordered">
-			<thead class="table-primary">
-				<tr>
-					<th>ID</th>
-					<th>Hình ảnh</th>
-					<th>Tên sách</th>
-					<th>Số lượng</th>
-					<th>Đơn giá</th>
-					<th>Tổng tiền</th>
-					<th>Hành động</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="item" items="${listCart}">
-					<tr>
-						<td>${item.getId()}</td>
-
-						<td class="text-center"><img
-							src="<%= request.getContextPath() %>/Images/${item.getImage()}"
-							alt="${item.getName()}" class="img-thumbnail"
-							style="width: 80px; height: auto;"></td>
-						<td>${item.getName()}</td>
-						<td><input type="number" class="qty-input form-control"
-							value="${item.getQty()}" min = 0 data-id="${item.getId()}" data-sdt="${sdt}"
-							onchange="showQtyChangeAlert(this)"/></td>
-						<td>${item.getPrice()}VND</td>
-						<td>${item.getTotal()}VND</td>
-						<td class="text-center">
-							<button class="btn btn-danger w-100 h-100 mt-2"
-								onclick="confirmDelete('${item.getId()}')">Xóa</button>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-			<tfoot>
-				<tr>
-					<th colspan="6" class="text-end">Tổng cộng</th>
-					<th><c:set var="total" value="0" />
+		<div class="row">
+			<!-- Phần bên trái: Bảng danh sách sản phẩm -->
+			<div class="col-md-9">
+				<table class="table table-bordered">
+					<thead class="table">
+						<tr>
+							<th>Mã sách</th>
+							<th>Hình ảnh</th>
+							<th>Tên sách</th>
+							<th>Số lượng</th>
+							<th>Đơn giá</th>
+							<th>Tổng tiền</th>
+							<th>Hành động</th>
+						</tr>
+					</thead>
+					<tbody>
 						<c:forEach var="item" items="${listCart}">
-							<c:set var="total" value="${total + item.getTotal()}" />
-						</c:forEach> ${total} VND</th>
-				</tr>
-			</tfoot>
-		</table>
-		<div class="text-end mt-3">
-			<a href="Form_List.jsp" class="btn btn-secondary">Tiếp tục mua
-				sắm</a>
-			<button class="btn btn-primary"
-				onclick="submitPayment('${total}','${sdt}')">Thanh toán</button>
+							<tr>
+								<td>${item.getId()}</td>
+								<td class="text-center"><img
+									src="<%= request.getContextPath() %>/Images/${item.getImage()}"
+									alt="${item.getName()}" class="img-thumbnail"
+									style="width: 80px; height: auto;"></td>
+								<td>${item.getName()}</td>
+								<td><input type="number" class="form-control"
+									value="${item.getQty()}" min="0" data-id="${item.getId()}"
+									data-sdt="${sdt}" onchange="showQtyChangeAlert(this)">
+								</td>
+								<td>${item.getPrice()}VND</td>
+								<td>${item.getTotal()}VND</td>
+								<td class="text-center">
+									<button class="btn btn-outline-danger w-100"
+										onclick="confirmDelete('${item.getId()}', '${sdt}')">Xóa</button>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- Phần bên phải: Thông tin tổng tiền và nút hành động -->
+			<div class="col-md-3">
+				<div class="border p-4 border-bordered">
+					<h5 class="mb-3">
+						Thành tiền:
+						<th><c:set var="total" value="0" /> <c:forEach var="item"
+								items="${listCart}">
+								<c:set var="total" value="${total + item.getTotal()}" />
+							</c:forEach> ${total} VND</th>
+					</h5>
+					<!-- Nút hành động -->
+					<button class="btn btn-info w-100 mt-2"
+						onclick="submitPayment('${total}','${sdt}')">Thanh toán</button>
+					<button class="btn btn-secondary w-100 mt-2"
+						onclick="home()">Tiếp tục mua hàng</button>
+				</div>
+			</div>
 		</div>
 	</div>
+
+
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

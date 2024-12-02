@@ -45,17 +45,14 @@
         // Lấy danh sách các radio button
         const radios = document.getElementsByName("phuongThucGiaoHang");
         let phiGiao = 0;
-
         // Kiểm tra radio button nào được chọn
         radios.forEach((radio) => {
             if (radio.checked) {
                 phiGiao = parseInt(radio.value); // Lấy giá trị của radio (phí giao hàng)
             }
         });
-
         // Tính thành tiền
         const thanhTien = tongGia + phiGiao;
-
         // Cập nhật hiển thị phí giao hàng và thành tiền
         document.getElementById("phiGiaoHang").textContent = phiGiao.toLocaleString('vi-VN') + " VND";
         document.getElementById("thanhTien").textContent = thanhTien.toLocaleString('vi-VN') + " VND";
@@ -65,13 +62,20 @@
         const thanhTien = document.getElementById("thanhTien").textContent.replace(/[^\d]/g, ""); 
      	// Lấy địa chỉ được chọn
         const selectedAddress = document.querySelector('input[name="address"]:checked'); // Radio được chọn
-        const diaChi = selectedAddress ? selectedAddress.nextElementSibling.querySelector('span').textContent : "Không có địa chỉ được chọn";
+        const diaChi = selectedAddress ? selectedAddress.nextElementSibling.querySelector('span').textContent : null;
+
+        // Kiểm tra xem địa chỉ có được chọn không
+        if (!diaChi) {
+            alert('Vui lòng chọn địa chỉ để thanh toán.');
+            return;
+        }
         // Hiển thị thông tin kiểm tra
         alert('Bạn đã chọn thanh toán với số tiền: ' + thanhTien + ' VND, SDT: ' + sdt + 'DiaChi: ' + diaChi);
-
-        window.location.href = '/Book/Pay?tongGia=' + thanhTien + '&sdt=' + sdt + '&diaChi=' + diaChi;
-        
+        window.location.href = '/Book/Pay?tongGia=' + thanhTien + '&sdt=' + sdt + '&diaChi=' + diaChi;     
     }
+    function FormCart(sdt) {
+		window.location.href = '/Book/ViewCart?sdt=' + sdt;
+	}
 
 </script>
 <link
@@ -81,6 +85,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
+	<h1 class="text-center mt-5">Thanh toán</h1>
 	<!-- Tạo modal thủ công -->
 	<div id="customModal"
 		style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; background-color: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); padding: 20px; z-index: 1000;">
@@ -97,9 +102,9 @@
 			onclick="submitNewAddress('${tongGia}','${sdt}')">Xác nhận</button>
 	</div>
 
-	<div class="container mt-5">
+	<div class="container mt-3">
 		<!-- Phần chọn địa chỉ -->
-		<h2 class="mb-5">Chọn địa chỉ giao hàng</h2>
+		<h4 class="mb-2">Chọn địa chỉ giao hàng</h4>
 		<div class="row g-3" id="addressContainer">
 			<c:forEach var="diaChi" items="${listAddress}">
 				<div class="col-md-4 d-flex">
@@ -126,9 +131,9 @@
 			</div>
 		</div>
 
-		<div class="mt-5">
+		<div class="mt-3">
 			<h4>Chọn một phương thức giao hàng</h4>
-			<div class="border p-3">
+			<div class="border p-3 rounded p-3">
 				<div class="form-check">
 					<input class="form-check-input" type="radio"
 						name="phuongThucGiaoHang" value="0" id="giaoTieuChuan" checked
@@ -144,12 +149,20 @@
 						tốc (+50.000 VND)</label>
 				</div>
 			</div>
-
+		</div>
+		<div class="mt-3">
+			<h4>Chọn phương thức thanh toán</h4>
+			<div class="border p-3 rounded p-3">
+				<div class="form-check">
+    				<input type="radio" class="form-check-input" id="paymentMethod" checked>
+    				<label class="form-check-label">Thanh toán khi nhận hàng</label>
+				</div>		
+			</div>	
 		</div>
 
-		<div class="mt-5">
+		<div class="mt-3 mb-2">
 			<h4>Tóm tắt đơn hàng</h4>
-			<div class="order-summary border p-3">
+			<div class="order-summary border p-3 rounded p-3">
 				<div class="d-flex justify-content-between align-items-center">
 					<span> <c:set var="itemCount" value="0" /> <c:forEach
 							var="sanPham" items="${listCart}">
@@ -183,16 +196,12 @@
 				<div class="mt-3">
 					Thành tiền: <strong id="thanhTien">${tongGia} VND</strong>
 					<div class="text-end mt-3">
-						<button class="btn btn-primary" onclick="submitPayment('${sdt}')">Xác
-							nhận</button>
+						<button class="btn btn-secondary" onclick="FormCart('${SDT}')">Trở lại</button>
+						<button class="btn btn-primary" onclick="submitPayment('${sdt}')">Xác nhận</button>
 					</div>
 				</div>
 			</div>
 		</div>
-
-
-
-
 
 	</div>
 

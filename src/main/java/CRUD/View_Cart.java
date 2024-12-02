@@ -37,6 +37,7 @@ public class View_Cart extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String sdt = request.getParameter("sdt");
+			String pass = request.getParameter("pass");
 			Connection conn = Database.getConnection();
 			List<CartModel> list = DBUtils.LoadCart(conn, sdt);
 			if(list == null){
@@ -44,6 +45,7 @@ public class View_Cart extends HttpServlet {
 			}else {
 		        request.setAttribute("listCart", list);
 		        request.setAttribute("sdt", sdt); 
+		        request.setAttribute("pass", pass); 
 		        request.getRequestDispatcher("/Views/Form_Cart.jsp").forward(request, response);
 			}
 		}catch(Exception ex) {
