@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-String sdt = (String) session.getAttribute("SDT");
-if (sdt == null) {
-	response.sendRedirect("Views/Form_Login.jsp"); // Chuyển về đăng nhập nếu chưa đăng nhập
-}
+    String sdt = (String) session.getAttribute("SDT");
+    if (sdt == null) {
+        response.sendRedirect("Views/Form_Login.jsp"); // Chuyển về đăng nhập nếu chưa đăng nhập
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -30,6 +30,21 @@ if (sdt == null) {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" href="#">Sách
+							tiếng Việt</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">English
+							Books</a></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" role="button"
+						data-bs-toggle="dropdown" aria-expanded="false"> Sách giáo
+							khoa </a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="#">Tiểu học</a></li>
+							<li><a class="dropdown-item" href="#">THCS</a></li>
+							<li><a class="dropdown-item" href="#">THPT</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="#">Đại học</a></li>
+						</ul></li>
 					<li class="nav-item"><input class="form-control me-2"
 						type="search" placeholder="Tìm kiếm sản phẩm" aria-label="Search"></li>
 
@@ -195,7 +210,7 @@ if (sdt == null) {
 	<script>
 	  // Get book ID and SDT from the server-side
 	  var bookId = '${book.id}';  // Book ID from the server
-	  var sdt = '<%=session.getAttribute("SDT") != null ? session.getAttribute("SDT") : ""%>';  // Phone number from session
+	  var sdt = '<%= session.getAttribute("SDT") != null ? session.getAttribute("SDT") : "" %>';  // Phone number from session
 
 	  // Add event listener to the "Add to Cart" button
 	  document.getElementById('add-to-cart').addEventListener('click', function() {
@@ -233,33 +248,9 @@ if (sdt == null) {
 	    // Build the URL with query parameters
 	    var url = '/Book/addcart?bookId=' + bookId + '&quantity=' + quantity + '&sdt=' + encodeURIComponent(sdt) + '&btn=' + btn;
 
-  // Send an AJAX request using fetch
-  fetch(url, {
-    method: 'GET',
-  })
-    .then(response => {
-      if (response.ok) {
-        // Show success message
-        alert('Thêm thành công!');
-      } else {
-        // Handle error response
-        alert('Có lỗi xảy ra khi thêm sản phẩm. Vui lòng thử lại!');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Không thể kết nối tới server. Vui lòng thử lại!');
-    });
-}
-function selectBook(bookId) {
-    // Điều hướng tới servlet với bookId dưới dạng query parameter
-	window.location.href = `/Book/form_detail?bookId=` + bookId;
-
-}
-function FormCart(sdt) {
-	window.location.href = '/Book/ViewCart?sdt=' + sdt;
-
-}
+	    // Redirect to the new servlet
+	    window.location.href = url;
+	  }
 	  function FormCart(sdt, pass) {
 			window.location.href = '/Book/ViewCart?sdt=' + sdt + '&pass=' + pass;
 
