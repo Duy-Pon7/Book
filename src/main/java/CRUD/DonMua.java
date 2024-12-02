@@ -35,10 +35,12 @@ public class DonMua extends HttpServlet {
 
             // Lấy danh sách các đơn mua từ cơ sở dữ liệu
          // Lấy danh sách các đơn mua từ cơ sở dữ liệu
+            String sdt = request.getParameter("sdt");
             List<DonMuaModel> listDonMua = DBUtils.LoadDonMua(conn, "0123456789");
 
                 // Truyền dữ liệu sang JSP
             request.setAttribute("listDonMua", listDonMua);
+            request.setAttribute("sdt", sdt);
 
             // Chuyển hướng sang trang JSP hiển thị đơn mua
             request.getRequestDispatcher("/Views/Form_DonMua.jsp").forward(request, response);

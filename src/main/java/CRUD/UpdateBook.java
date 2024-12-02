@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import DB.Database;
+import Model.Book;
 import Model.DBUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

@@ -21,25 +21,31 @@
 				</p>
 				<div
 					class="border rounded border-2 mt-1 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-					<form class="row g-3">
+					                    <!-- Display success or failure message -->
+                    <% if (request.getAttribute("message") != null) { %>
+                        <div class="alert alert-info text-center">
+                            <%= request.getAttribute("message") %>
+                        </div>
+                    <% } %>
+					<form class="row g-3" action="<%=request.getContextPath() + "/form_create" %>" method="post">
 						<div class="col-md-6">
-						<input type="text" class="form-control" id="inputFirstName" placeholder="Họ">
+							<input type="text" class="form-control" id="inputFirstName" name="inputFirstName" placeholder="Họ">
 						</div>
 						<div class="col-md-6">
-							<input type="text" class="form-control" id="inputLastName" placeholder="Tên">
+							<input type="text" class="form-control" id="inputLastName" name="inputLastName" placeholder="Tên">
 						</div>
 						<div class="col-12">
-							<input type="text" class="form-control" id="inputAddress" placeholder="Địa chỉ">
+							<input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="Địa chỉ">
 						</div>
 						<div class="col-12">
-							<input type="tel" class="form-control" id="inputPhone" placeholder=" Số điện thoại, VD: 035*******">
+							<input type="tel" class="form-control" id="inputPhone" name="inputPhone" placeholder="Số điện thoại, VD: 035*******">
 						</div>
 						<div class="col-12">
-    						<input type="password" class="form-control" id="inputPassword" placeholder="Nhập mật khẩu">
-  						</div>
+							<input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Nhập mật khẩu">
+						</div>
 						<div class="col-12">
 							<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="gridCheck">
+								<input class="form-check-input" type="checkbox" id="gridCheck" required>
 								<label class="form-check-label" for="gridCheck"> Đồng ý với các thỏa thuận </label>
 							</div>
 						</div>

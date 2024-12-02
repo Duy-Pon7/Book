@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-String sdt = (String) session.getAttribute("SDT");
-if (sdt == null) {
-	response.sendRedirect("Views/Form_Login.jsp"); // Chuyển về đăng nhập nếu chưa đăng nhập
-}
+    String sdt = (String) session.getAttribute("SDT");
+    if (sdt == null) {
+        response.sendRedirect("Views/Form_Login.jsp"); // Chuyển về đăng nhập nếu chưa đăng nhập
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -66,104 +66,78 @@ if (sdt == null) {
 			</div>
 		</div>
 	</nav>
-	<div class="row p-3">
-		<div class="col-sm-2 border rounded p-3 mx-auto">
-			<div class="container">
-				<!-- Thể loại sách -->
-				<h6 class="mt-3 mb-2">THỂ LOẠI SÁCH</h6>
-				<c:forEach var="category" items="${uniqueCategories}">
-					<div class="form-check">
-						<input type="radio" class="form-check-input" name="category"
-							id="category-${category}" value="${category}"
-							${theLoai == category ? 'checked' : ''} onclick="filterResults()">
-						<label class="form-check-label" for="category-${category}">${category}</label>
-					</div>
-				</c:forEach>
-
-				<!-- Giá -->
-				<h6 class="mt-4 mb-2">GIÁ</h6>
-				<div class="form-check">
-					<input type="radio" class="form-check-input" name="price"
-						id="price1" value="0-150000" ${gia == '0-150000' ? 'checked' : ''}
-						onclick="filterResults()"> <label class="form-check-label"
-						for="price1">0đ - 150,000đ</label>
-				</div>
-				<div class="form-check">
-					<input type="radio" class="form-check-input" name="price"
-						id="price2" value="150000-300000"
-						${gia == '150000-300000' ? 'checked' : ''}
-						onclick="filterResults()"> <label class="form-check-label"
-						for="price2">150,000đ - 300,000đ</label>
-				</div>
-				<div class="form-check">
-					<input type="radio" class="form-check-input" name="price"
-						id="price3" value="300000-500000"
-						${gia == '300000-500000' ? 'checked' : ''}
-						onclick="filterResults()"> <label class="form-check-label"
-						for="price3">300,000đ - 500,000đ</label>
-				</div>
-				<div class="form-check">
-					<input type="radio" class="form-check-input" name="price"
-						id="price4" value="500000-700000"
-						${gia == '500000-700000' ? 'checked' : ''}
-						onclick="filterResults()"> <label class="form-check-label"
-						for="price4">500,000đ - 700,000đ</label>
-				</div>
-				<div class="form-check">
-					<input type="radio" class="form-check-input" name="price"
-						id="price5" value="700000-up"
-						${gia == '700000-up' ? 'checked' : ''} onclick="filterResults()">
-					<label class="form-check-label" for="price5">700,000đ - Trở
-						Lên</label>
-				</div>
-
-				<!-- Nhà xuất bản -->
-				<h6 class="mt-4 mb-2">NHÀ XUẤT BẢN</h6>
-				<c:forEach var="publisher" items="${uniquePublishers}">
-					<div class="form-check">
-						<input type="radio" class="form-check-input" name="supplier"
-							id="supplier-${publisher}" value="${publisher}"
-							${nxb == publisher ? 'checked' : ''} onclick="filterResults()">
-						<label class="form-check-label" for="supplier-${publisher}">${publisher}</label>
-					</div>
-				</c:forEach>
-
-			</div>
-
+	<div class="row" style="background-color: #f0f0f0">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-5 border rounded-3 m-2"
+			style="background-color: #ffffff">
+			<!-- Hiển thị hình ảnh từ thuộc tính "image" -->
+			<img
+				src="<%= request.getContextPath() %>/Images/<c:out value='${book.image}' />"
+				alt="<c:out value='${book.name}' />" class="card-img-top" />
 		</div>
-
-
-		<div class="col-sm-9 d-flex flex-wrap mx-auto">
+		<div class="col-sm-5 border rounded-3 m-2"
+			style="background-color: #ffffff">
+			<!-- Hiển thị tiêu đề từ thuộc tính "name" -->
+			<h3 class="mt-2">
+				<c:out value="${book.name}" />
+			</h3>
 			<div class="row">
-				<!-- Lặp qua danh sách sách -->
-				<c:forEach var="book" items="${books}">
-					<div class="col-sm-4">
-						<div class="card m-2 btn" style="width: 14rem;"
-							onclick="selectBook('${book.id}')">
-							<img src="<%= request.getContextPath() %>/Images/${book.image}"
-								alt="${book.name}" class="card-img-top">
-							<div class="card-body">
-								<h5 class="card-title">${book.name}</h5>
-								<p class="card-text">Giá gốc: ${book.originalPrice} VND</p>
-								<p class="card-text">Giá bán: ${book.salePrice} VND</p>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-
+				<div class="col mt-2">
+					<p>
+						Nhà xuất bản: <strong><c:out value="${book.publisher}" /></strong>
+					</p>
+				</div>
+				<div class="col mt-2">
+					<p>
+						Tác giả: <strong><c:out value="${book.author}" /></strong>
+					</p>
+				</div>
 			</div>
+			<div class="row">
+				<div class="col">
+					<p>
+						Book ID:
+						<c:out value="${book.id}" />
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-auto">
+					<p class="fs-2 text-danger" style="font-weight: bold;">
+						<c:out value="${book.salePrice}" />
+					</p>
+
+				</div>
+				<div class="col-auto">
+					<p class="fs-6 mt-3 text-secondary">
+						<del>
+							<c:out value="${book.originalPrice}" />
+						</del>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-3">
+					<input type="text" class="form-control" id="quantity"
+						placeholder="Số lượng" aria-label="Username"
+						aria-describedby="addon-wrapping">
+				</div>
+			</div>
+			<div class="row d-flex justify-content-center mt-5">
+				<div class="col-auto">
+					<button type="button" class="btn btn-outline-danger"
+						id="add-to-cart">Thêm vào giỏ hàng</button>
+				</div>
+				<div class="col-auto">
+					<button type="button" class="btn btn-danger" id="buy-now">Mua
+						ngay</button>
+				</div>
+			</div>
+
 		</div>
+		<div class="col-sm-1"></div>
 	</div>
-	<nav  aria-label="Page navigation example">
-		<ul class="pagination">
-			<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">Next</a></li>
-		</ul>
-	</nav>
-	<!-- Footer -->
+
 	<div class="row mt-5" style="background-color: #282a35">
 		<div class="col-sm-2 mt-5"></div>
 		<div class="col-sm-4 mt-5">
@@ -234,30 +208,57 @@ if (sdt == null) {
 		
 	</script>
 	<script>
-		function selectBook(bookId) {
-			// Điều hướng tới servlet với bookId dưới dạng query parameter
-			window.location.href = `/Book/form_detail?bookId=` + bookId;
+	  // Get book ID and SDT from the server-side
+	  var bookId = '${book.id}';  // Book ID from the server
+	  var sdt = '<%= session.getAttribute("SDT") != null ? session.getAttribute("SDT") : "" %>';  // Phone number from session
+
+	  // Add event listener to the "Add to Cart" button
+	  document.getElementById('add-to-cart').addEventListener('click', function() {
+	    // Get the quantity from the input field
+	    var quantity = document.getElementById('quantity').value; // Quantity
+
+	    // Show the alert with book ID, quantity, and SDT
+	    if (sdt) {
+	      alert('Book ID: ' + bookId + '\nQuantity: ' + quantity + '\nPhone: ' + sdt);
+	    } else {
+	      alert('Book ID: ' + bookId + '\nQuantity: ' + quantity + '\nPhone number is not available.');
+	    }
+	    var btn = "atc";
+	    // Redirect to a new servlet with the bookId, quantity, and sdt as query parameters
+	    selectBook(bookId, quantity, sdt, btn);
+	  });
+	// Add event listener to the "Add to Cart" button
+	  document.getElementById('buy-now').addEventListener('click', function() {
+	    // Get the quantity from the input field
+	    var quantity = document.getElementById('quantity').value; // Quantity
+
+	    // Show the alert with book ID, quantity, and SDT
+	    if (sdt) {
+	      alert('Book ID: ' + bookId + '\nQuantity: ' + quantity + '\nPhone: ' + sdt);
+	    } else {
+	      alert('Book ID: ' + bookId + '\nQuantity: ' + quantity + '\nPhone number is not available.');
+	    }
+	    var btn = "bn";
+	    // Redirect to a new servlet with the bookId, quantity, and sdt as query parameters
+	    selectBook(bookId, quantity, sdt, btn);
+	  });
+		
+	  // Function to redirect to a new servlet with query parameters
+	  function selectBook(bookId, quantity, sdt, btn) {
+	    // Build the URL with query parameters
+	    var url = '/Book/addcart?bookId=' + bookId + '&quantity=' + quantity + '&sdt=' + encodeURIComponent(sdt) + '&btn=' + btn;
+
+	    // Redirect to the new servlet
+	    window.location.href = url;
+	  }
+	  function FormCart(sdt, pass) {
+			window.location.href = '/Book/ViewCart?sdt=' + sdt + '&pass=' + pass;
 
 		}
-		function FormCart(sdt, pass) {
-			window.location.href = '/Book/ViewCart?sdt=' + sdt + '&pass='
-					+ pass;
-		}
-		function home() {
+	  function home() {
 			window.location.href = '/Book/read';
 		}
-		function filterResults() {
-		    // Lấy giá trị của thể loại từ các radio button
-		    const theLoai = document.querySelector('input[name="category"]:checked')?.value || "empty"	    
-		    // Lấy giá trị của nhà xuất bản từ các radio button
-		    const nhaXuatBan = document.querySelector('input[name="supplier"]:checked')?.value || "empty"	    
-		    // Lấy giá trị của tác giả từ các radio button
-		    const gia = document.querySelector('input[name="price"]:checked')?.value || "empty";
-		    // Chuyển hướng đến URL với các tham số
-		    window.location.href = '/Book/read?theLoai=' + encodeURIComponent(theLoai) +
-		                          '&nxb=' + encodeURIComponent(nhaXuatBan) +
-		                          '&gia=' + encodeURIComponent(gia); 
-		}
+	  
 	</script>
 </body>
 </html>

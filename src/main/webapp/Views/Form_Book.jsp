@@ -27,36 +27,46 @@
 		
 		    <!-- Các trường nhập liệu -->
 		    <div class="row g-3 text-center">
-		        <div class="col-md-2">
-		            <input type="text" id="tenSach" name="tenSach" class="form-control" placeholder="Tên Sách" required>
-		        </div>
-		        <div class="col-md-2">
-		            <input type="text" id="tenLoai" name="tenLoai" class="form-control" placeholder="Thể Loại" required>
-		        </div>
-		        <div class="col-md-2">
-		            <input type="text" id="tacGia" name="tacGia" class="form-control" placeholder="Tác Giả" required>
-		        </div>
-		        <div class="col-md-2">
-		            <input type="text" id="nxb" name="nxb" class="form-control" placeholder="Nhà Xuất Bản" required>
-		        </div>
-		        <div class="col-md-2 text-center">
-		            <input type="text" id="image" name="image" class="form-control" placeholder="Link Ảnh" required>
-		        </div>
-		    </div>
-		    <div class="row g-3 text-center">
-		        <div class="col-md-2">
-		            <input type="number" step="0.01" id="giaGoc" name="giaGoc" class="form-control" placeholder="Giá Gốc" required>
-		        </div>
-		        <div class="col-md-2">
-		            <input type="number" step="0.01" id="giaBan" name="giaBan" class="form-control" placeholder="Giá Bán" required>
-		        </div>
-		        <div class="col-md-2">
-		            <input type="number" id="soLuong" name="soLuong" class="form-control" placeholder="Số Lượng Tồn" required>
-		        </div>
-		        <div class="col-md-2">
-		            <input type="text" id="moTa" name="moTa" class="form-control" placeholder="Mô Tả" required>
-		        </div>
-		    </div>
+			    <div class="col-md-2">
+			        <label for="tenSach" class="form-label">Tên Sách</label>
+			        <input type="text" id="tenSach" name="tenSach" class="form-control" placeholder="Tên Sách" required>
+			    </div>
+			    <div class="col-md-2">
+			        <label for="tenLoai" class="form-label">Thể Loại</label>
+			        <input type="text" id="tenLoai" name="tenLoai" class="form-control" placeholder="Thể Loại" required>
+			    </div>
+			    <div class="col-md-2">
+			        <label for="tacGia" class="form-label">Tác Giả</label>
+			        <input type="text" id="tacGia" name="tacGia" class="form-control" placeholder="Tác Giả" required>
+			    </div>
+			    <div class="col-md-2">
+			        <label for="nxb" class="form-label">Nhà Xuất Bản</label>
+			        <input type="text" id="nxb" name="nxb" class="form-control" placeholder="Nhà Xuất Bản" required>
+			    </div>
+			    <div class="col-md-2">
+			        <label for="image" class="form-label">Link Ảnh</label>
+			        <input type="text" id="image" name="image" class="form-control" placeholder="Link Ảnh" required>
+			    </div>
+			</div>
+			<div class="row g-3 text-center">
+			    <div class="col-md-2">
+			        <label for="giaGoc" class="form-label">Giá Gốc</label>
+			        <input type="number" step="0.01" id="giaGoc" name="giaGoc" class="form-control" placeholder="Giá Gốc" required>
+			    </div>
+			    <div class="col-md-2">
+			        <label for="giaBan" class="form-label">Giá Bán</label>
+			        <input type="number" step="0.01" id="giaBan" name="giaBan" class="form-control" placeholder="Giá Bán" required>
+			    </div>
+			    <div class="col-md-2">
+			        <label for="soLuong" class="form-label">Số Lượng Tồn</label>
+			        <input type="number" id="soLuong" name="soLuong" class="form-control" placeholder="Số Lượng Tồn" required>
+			    </div>
+			    <div class="col-md-2">
+			        <label for="moTa" class="form-label">Mô Tả</label>
+			        <input type="text" id="moTa" name="moTa" class="form-control" placeholder="Mô Tả" required>
+			    </div>
+			</div>
+
 		    
 		    <!-- Nút Thêm và Sửa -->
 		    <div class="mt-4 text-center">
@@ -79,7 +89,7 @@
                     <th>Giá Bán</th>
                     <th>Số Lượng Tồn</th>
                     <th>Mô Tả</th>
-                    <th>Link Ảnh</th>
+                    <th>Hình Ảnh</th>
                     <th>Hành động</th>
                 </tr>
             </thead>
@@ -88,32 +98,37 @@
                     <tr><td colspan="11" class="text-center">Không có sách nào.</td></tr>
                 </c:if>
                 <c:forEach var="book" items="${bookList}">
-                    <tr onclick="editBook(${book.maSach}, '${book.tenSach}', '${book.tenLoai}', '${book.tacGia}', '${book.nxb}', '${book.moTa}', '${book.image}', ${book.soLuong}, ${book.giaGoc}, ${book.giaBan})">
-                        <td>${book.maSach}</td>
-                        <td>${book.tenSach}</td>
-                        <td>${book.tenLoai}</td>
-                        <td>${book.tacGia}</td>
-                        <td>${book.nxb}</td>
-                        <td>${book.giaGoc}</td>
-                        <td>${book.giaBan}</td>
-                        <td>${book.soLuong}</td> <!-- Hiển thị số lượng tồn kho -->
-                        <td>${book.moTa}</td>
-                        <td><img src="${book.image}" alt="Ảnh" style="width:50px;height:auto;"></td>
-                        <td>
-                            <!-- Nút Xóa -->
-                            <form action="${pageContext.request.contextPath}/BookDelete" method="post" class="d-inline" onsubmit="return confirmDelete()">
-							    <input type="hidden" name="id" value="${book.maSach}">
-							    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-							</form>
-							
-							<script>
-							    function confirmDelete() {
-							        return confirm("Bạn có chắc chắn muốn xóa sách này?");
-							    }
-							</script>
-                        </td>
-                    </tr>
-                </c:forEach>
+				    <tr onclick="editBook(${book.id}, '${book.name}', '${book.category}', '${book.author}', '${book.publisher}', '${book.description}', '${book.image}', ${book.quantity}, ${book.originalPrice}, ${book.salePrice})">
+				        <td>${book.id}</td>
+				        <td>${book.name}</td>
+				        <td>${book.category}</td>
+				        <td>${book.author}</td>
+				        <td>${book.publisher}</td>
+				        <td>${book.originalPrice}</td>
+				        <td>${book.salePrice}</td>
+				        <td>${book.quantity}</td> <!-- Hiển thị số lượng tồn kho -->
+				        <td>${book.description}</td>
+				        <td class="text-center">
+				            <img
+				                src="<%= request.getContextPath() %>/Images/${book.image}"
+				                alt="${book.name}" class="img-thumbnail"
+				                style="width: 80px; height: auto;">
+				        </td>
+				        <td>
+				            <!-- Nút Xóa -->
+				            <form action="${pageContext.request.contextPath}/BookDelete" method="post" class="d-inline" onsubmit="return confirmDelete()">
+				                <input type="hidden" name="id" value="${book.id}">
+				                <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+				            </form>
+				            
+				            <script>
+				                function confirmDelete() {
+				                    return confirm("Bạn có chắc chắn muốn xóa sách này?");
+				                }
+				            </script>
+				        </td>
+				    </tr>
+				</c:forEach>
             </tbody>
         </table>
     </div>

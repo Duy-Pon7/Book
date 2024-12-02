@@ -6,27 +6,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 import DB.Database;
-import Model.AddressModel;
 import Model.CartModel;
 import Model.DBUtils;
 
-
 /**
- * Servlet implementation class Cart
+ * Servlet implementation class Update_Cart
  */
-@WebServlet("/ViewCart")
-public class View_Cart extends HttpServlet {
+@WebServlet("/UpdateCart")
+public class Update_Cart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public View_Cart() {
+    public Update_Cart() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,18 +33,18 @@ public class View_Cart extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		int soluong = Integer.parseInt(request.getParameter("soluong"));
+		String sdt = request.getParameter("sdt");
 		try {
-			String sdt = request.getParameter("sdt");
-			String pass = request.getParameter("pass");
 			Connection conn = Database.getConnection();
-			List<CartModel> list = DBUtils.LoadCart(conn, sdt);
-			if(list == null){
-				System.out.print("Khong co du lieu");
+			boolean check = DBUtils.UpdateCart(conn, id, soluong);
+			if(check) {
+				request.setAttribute("sdt", sdt); 
+				response.sendRedirect(request.getContextPath() + "/ViewCart?sdt=" + URLEncoder.encode(sdt, "UTF-8"));
 			}else {
-		        request.setAttribute("listCart", list);
-		        request.setAttribute("sdt", sdt); 
-		        request.setAttribute("pass", pass); 
-		        request.getRequestDispatcher("/Views/Form_Cart.jsp").forward(request, response);
+				request.setAttribute("errorMessage", "Sửa không thành công!");
+				response.sendRedirect(request.getContextPath() + "/ViewCart");
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();

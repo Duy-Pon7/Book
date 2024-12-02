@@ -42,10 +42,9 @@ public class ChiTietDonMua extends HttpServlet {
                     out.write("<tr>");
                     out.write("<td>" + item.getMaSach() + "</td>");
                     out.write("<td>" + item.getTenSach() + "</td>");
-                    out.write("<td class='text-center'><img"
-							+"src='<%= request.getContextPath() %>/Images/${"+item.getImage()+"}'"
-							+"alt='${"+item.getTenSach()+"}' class='img-thumbnail'"
-							+"style='width: 80px; height: auto;'></td>");
+                    out.write("<td class='text-center'><img src='" + request.getContextPath() + "/Images/" + item.getImage() + "' "
+                            + "alt='" + item.getTenSach() + "' class='img-thumbnail' "
+                            + "style='width: 80px; height: auto;'></td>");
                     out.write("<td>" + item.getGiaBan() + "</td>");
                     out.write("<td>" + item.getSoluong() + "</td>");
                     out.write("</tr>");
