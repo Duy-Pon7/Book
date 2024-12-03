@@ -15,8 +15,7 @@ public class Database {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String DB_URL = "jdbc:sqlserver://" + DB_ServerName + ":1433;" + 
                             "databaseName=" + DB_databaseName + ";" + 
-                            "encrypt=true;" + 
-                            "trustServerCertificate=true;";
+                            "encrypt=true;trustServerCertificate=true;";
             Connection conn = DriverManager.getConnection(DB_URL, DB_login, DB_password);
             System.out.println("Kết nối thành công!");
             return conn;
@@ -25,7 +24,7 @@ public class Database {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        
+   
         return null;
     }
 

@@ -19,7 +19,7 @@
 					<b>DreamBooks</b>
 				</p>
 				<img
-					src="<%=request.getContextPath()%>/images/undraw_education_f8ru.png">
+					src="<%=request.getContextPath()%>/Images/undraw_education_f8ru.png">
 			</div>
 			<div class="col-sm-6 mt-5">
 				<div class="row">

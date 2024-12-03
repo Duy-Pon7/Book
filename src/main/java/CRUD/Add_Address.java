@@ -6,27 +6,23 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
 
 import DB.Database;
-import Model.AddressModel;
-import Model.CartModel;
 import Model.DBUtils;
 
-
 /**
- * Servlet implementation class Cart
+ * Servlet implementation class Add_Address
  */
-@WebServlet("/ViewCart")
-public class View_Cart extends HttpServlet {
+@WebServlet("/AddAddress")
+public class Add_Address extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public View_Cart() {
+    public Add_Address() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,20 +31,22 @@ public class View_Cart extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String tongGia = request.getParameter("tongGia");
+		String sdt = request.getParameter("sdt");
+		String diaChi = request.getParameter("diaChi");
 		try {
-			String sdt = request.getParameter("sdt");
-			String pass = request.getParameter("pass");
 			Connection conn = Database.getConnection();
-			List<CartModel> list = DBUtils.LoadCart(conn, sdt);
-			if(list == null){
-				System.out.print("Khong co du lieu");
-			}else {
-		        request.setAttribute("listCart", list);
-		        request.setAttribute("sdt", sdt); 
-		        request.setAttribute("pass", pass); 
-		        request.getRequestDispatcher("/Views/Form_Cart.jsp").forward(request, response);
+			boolean check = DBUtils.Add1Address(conn, sdt, diaChi);
+			if (check) {
+				response.sendRedirect(request.getContextPath() + "/ViewPay?sdt=" + URLEncoder.encode(sdt, "UTF-8")
+						+ "&tongGia=" + URLEncoder.encode(tongGia, "UTF-8"));
+
+			} else {
+				request.setAttribute("errorMessage", "Xoá không thành công!");
+				response.sendRedirect(request.getContextPath() + "/ViewPay?sdt=" + URLEncoder.encode(sdt, "UTF-8")
+				+ "&tongGia=" + URLEncoder.encode(tongGia, "UTF-8"));
 			}
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}

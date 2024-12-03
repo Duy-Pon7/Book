@@ -59,4 +59,54 @@
     <servlet-name>AddCart</servlet-name>
     <url-pattern>/AddCart</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Update_Cart</display-name>
+    <servlet-name>Update_Cart</servlet-name>
+    <servlet-class>CRUD.Update_Cart</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>View_Pay</servlet-name>
+    <url-pattern>/Update_Cart</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>View_Pay</display-name>
+    <servlet-name>View_Pay</servlet-name>
+    <servlet-class>CRUD.View_Pay</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>View_Pay</servlet-name>
+    <url-pattern>/View_Pay</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Delete_Address</display-name>
+    <servlet-name>Delete_Address</servlet-name>
+    <servlet-class>CRUD.Delete_Address</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Delete_Address</servlet-name>
+    <url-pattern>/Delete_Address</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Add_Address</display-name>
+    <servlet-name>Add_Address</servlet-name>
+    <servlet-class>CRUD.Add_Address</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Add_Address</servlet-name>
+    <url-pattern>/Add_Address</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Filter</display-name>
+    <servlet-name>Filter</servlet-name>
+    <servlet-class>CRUD.Filter</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Filter</servlet-name>
+    <url-pattern>/Filter</url-pattern>
+  </servlet-mapping>
 </web-app>

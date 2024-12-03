@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.util.List;
 
@@ -33,17 +34,13 @@ public class Delete_Cart extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
+		String sdt = request.getParameter("sdt");
 		try {
 			Connection conn = Database.getConnection();
 			boolean check = DBUtils.Delete1Cart(conn, id);
 			if(check) {
-				List<CartModel> list = DBUtils.LoadCart(conn, "0123456789");
-				if(list == null) {
-					System.out.print("khong co du lieu");
-				}else {
-					request.setAttribute("listCart", list);
-					response.sendRedirect(request.getContextPath() + "/ViewCart");
-				}
+				request.setAttribute("sdt", sdt); 
+				response.sendRedirect(request.getContextPath() + "/ViewCart?sdt=" + URLEncoder.encode(sdt, "UTF-8"));
 			}else {
 				request.setAttribute("errorMessage", "Xoá không thành công!");
 				response.sendRedirect(request.getContextPath() + "/ViewCart");
