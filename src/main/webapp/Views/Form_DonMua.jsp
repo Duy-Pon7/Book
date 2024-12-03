@@ -17,8 +17,8 @@
             <div class="alert alert-warning">${message}</div>
         </c:if>
 
-        <table class="table table-bordered">
-            <thead class="table-primary">
+        <table class="table table-success table-striped text-center">
+            <thead class="table table-success table-striped">
                 <tr>
                     <th>Mã Đơn</th>
                     <th>Số Điện Thoại</th>
@@ -26,7 +26,7 @@
                     <th>Trị Giá Đơn Hàng</th>
                     <th>Địa Chỉ</th>
                     <th>Xem chi tiết</th>
-                    <th>Xem thông tin khách hàng</th>
+        			<th>Xem thông tin khách hàng</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,20 +43,20 @@
 				        <td>${item.triGiaDH} VND</td>
 				        <td>${item.diaChi}</td>
 				        <td class="text-center">
-						    <button class="btn btn-primary" onclick="toggleFetchDetails('${item.maDon}'); event.preventDefault();">Chi tiết</button>
-						</td>
+				            <button class="btn btn-outline-success" onclick="toggleFetchDetails('${item.maDon}'); event.preventDefault();">Chi tiết</button>
+				        </td>
 				        <td class="text-center">
-						    <form action="${pageContext.request.contextPath}/ListKH" method="get">
-						        <input type="hidden" name="sdt" value="${item.sDT}" />
-						        <button type="button" class="btn btn-primary" onclick="toggleAndFetchDetails('${item.sDT}')">Thông tin khách hàng</button>
-						    </form>
-						</td>
+				            <form action="${pageContext.request.contextPath}/ListKH" method="get">
+				                <input type="hidden" name="sdt" value="${item.sDT}" />
+				                <button type="button" class="btn btn-outline-success" onclick="toggleAndFetchDetails('${item.sDT}')">Thông tin khách hàng</button>
+				            </form>
+				        </td>
 				    </tr>
 				    <!-- Hàng chi tiết ẩn -->
 				    <tr id="details-${item.maDon}" style="display: none;">
 				        <td colspan="7">
-				            <table class="table table-sm table-bordered">
-				                <thead class="table-light">
+				            <table class="table table-sm table-bordered text-center">
+				                <thead class="table-info">
 				                    <tr>
 				                        <th>Mã sản phẩm</th>
 				                        <th>Tên sách</th>
@@ -65,74 +65,80 @@
 				                        <th>Số lượng</th>
 				                    </tr>
 				                </thead>
-				                <tbody>
-				                    <tbody id="chitietdh">
+				                <tbody id="chitietdh-${item.maDon}">
+				                    <!-- Dữ liệu chi tiết đơn hàng sẽ được thêm vào đây -->
 				                </tbody>
 				            </table>
 				        </td>
 				    </tr>
-				    <!-- Hàng chi tiết ẩn -->
-					<tr id="details-${item.sDT}" style="display: none;">
-					    <td colspan="7">
-					        <table class="table table-bordered table-striped text-center">
-					            <thead class="table-dark">
-					                <tr>
-					                    <th>STT</th>
-					                    <th>Họ Khách Hàng</th>
-					                    <th>Tên Khách Hàng</th>
-					                    <th>Số Điện Thoại</th>
-					                    <th>Địa Chỉ</th>
-					                </tr>
-					            </thead>
-					            <tbody id="customerTable">
-					                <!-- Dữ liệu khách hàng sẽ được thêm vào đây thông qua AJAX -->
-					            </tbody>
-					        </table>
-					    </td>
-					</tr>
+				    <!-- Hàng chi tiết khách hàng ẩn -->
+				    <tr id="details-${item.sDT}" style="display: none;">
+				        <td colspan="7">
+				            <table class="table table-bordered table-striped text-center">
+				                <thead class="table-info">
+				                    <tr>
+				                        <th>STT</th>
+				                        <th>Họ Khách Hàng</th>
+				                        <th>Tên Khách Hàng</th>
+				                        <th>Số Điện Thoại</th>
+				                        <th>Địa Chỉ</th>
+				                    </tr>
+				                </thead>
+				                <tbody id="customerTable-${item.sDT}">
+				                    <!-- Dữ liệu khách hàng sẽ được thêm vào đây -->
+				                </tbody>
+				            </table>
+				        </td>
+				    </tr>
 				</c:forEach>
+
             </tbody>
         </table>
     </div>
     <script>
-	    function loadCustomerData(sdt) {
-	        // Gửi AJAX request đến Servlet để lấy dữ liệu khách hàng
-	        var xhr = new XMLHttpRequest();
-	        xhr.open("GET", "/Book/ListKH?sdt=" + sdt, true);
-	        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	
-	        xhr.onload = function() {
-	            if (xhr.status === 200) {
-	                // Thêm dữ liệu HTML vào bảng khách hàng
-	                document.getElementById("customerTable").innerHTML = xhr.responseText;
-	            } else {
-	                console.error("Lỗi khi tải danh sách khách hàng.");
-	            }
-	        };
-	
-	        xhr.send();
-	        
-	    }
 	    function loadOrderDetails(maDon) {
-	    	var xhr = new XMLHttpRequest();
+	        var xhr = new XMLHttpRequest();
 	        xhr.open("GET", "/Book/ChiTietHD?id=" + maDon, true);
 	        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	
 	        xhr.onload = function() {
 	            if (xhr.status === 200) {
-	                document.getElementById("chitietdh").innerHTML = xhr.responseText;
+	                document.getElementById("chitietdh-" + maDon).innerHTML = xhr.responseText;
 	            } else {
 	                console.error("Lỗi khi tải danh sách.");
 	            }
 	        };
 	
 	        xhr.send();
-        }
-	</script>
-
-	<script>
+	    }
+	
+	    function loadCustomerData(sdt) {
+	        var xhr = new XMLHttpRequest();
+	        xhr.open("GET", "/Book/ListKH?sdt=" + sdt, true);
+	        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+	        xhr.onload = function() {
+	            if (xhr.status === 200) {
+	                document.getElementById("customerTable-" + sdt).innerHTML = xhr.responseText;
+	            } else {
+	                console.error("Lỗi khi tải danh sách khách hàng.");
+	            }
+	        };
+	
+	        xhr.send();
+	    }
+	
+	    function toggleFetchDetails(maDon) {
+	        var row = document.getElementById("details-" + maDon);
+	        if (row.style.display === "none") {
+	            row.style.display = "table-row";
+	            loadOrderDetails(maDon);
+	        } else {
+	            row.style.display = "none";
+	        }
+	    }
+	
 	    function toggleAndFetchDetails(sdt) {
-	        // Toggling the row visibility
 	        var row = document.getElementById("details-" + sdt);
 	        if (row.style.display === "none") {
 	            row.style.display = "table-row";
@@ -141,16 +147,7 @@
 	            row.style.display = "none";
 	        }
 	    }
-	    function toggleFetchDetails(maDon) {
-	        // Toggling the row visibility
-	        var row = document.getElementById("details-" + maDon);
-	        if (row.style.display === "none") {
-	            row.style.display = "table-row";
-	            loadOrderDetails(maDon)
-	        } else {
-	            row.style.display = "none";
-	        }
-	    }
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>

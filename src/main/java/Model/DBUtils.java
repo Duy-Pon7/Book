@@ -157,12 +157,11 @@ public class DBUtils {
 	    }
 	    return list; // Trả về danh sách đơn mua
 	}
-	public static List<DonMuaModel> LoadDonMua(Connection conn, String SDT) {
+	public static List<DonMuaModel> LoadDonMua(Connection conn) {
 	    List<DonMuaModel> list = new ArrayList<>();
-	    String query = "SELECT * from DONMUA where SDT = ?";
+	    String query = "SELECT * from DONMUA";
 	    try {
 	        PreparedStatement ps = conn.prepareStatement(query);
-	        ps.setString(1, SDT);
 	        ResultSet rs = ps.executeQuery();
 
 	        while (rs.next()) {
