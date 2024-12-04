@@ -258,19 +258,6 @@ public class DBUtils {
 	        return false; 
 	    }
 	}
-	
-	public static boolean DeleteAllCart(Connection conn, String phone) {
-		String query = "DELETE FROM GIOHANG WHERE SDT = ?";
-		try {
-		    PreparedStatement ps = conn.prepareStatement(query);
-		    ps.setString(1, phone); 
-		    int rowsAffected = ps.executeUpdate(); 
-		    return rowsAffected > 0; 
-		} catch (Exception ex) {
-		    ex.printStackTrace(); 
-		    return false; 
-		}
-	}
 	public static int Add_bill(Connection conn, String phone, float total, String diaChi) {
 		String query = "INSERT INTO DONMUA (SDT, TriGiaDH, NgayMua, DiaChi) VALUES (?, ?, ?, ?)";
 		int maDon = -1;

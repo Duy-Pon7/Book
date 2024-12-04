@@ -42,9 +42,6 @@ public class Pay extends HttpServlet {
 			boolean check = false;
 			if(maDon != -1) {
 				check = DBUtils.Add_InfBill(conn, sdt, maDon);
-				if(check) {
-					check = DBUtils.DeleteAllCart(conn, sdt);
-				}
 			}
 			if(check) {
 				request.setAttribute("sdt", sdt); 

@@ -20,27 +20,30 @@ if (sdt == null) {
 	crossorigin="anonymous">
 <style>
 #suggestionsList {
-    display: none;
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
-    z-index: 1000;
-    width: 100%;
+	display: none;
+	position: absolute;
+	background-color: white;
+	border: 1px solid #ccc;
+	z-index: 1000;
+	width: 99%;
 }
+
 #suggestionsList li {
-    list-style: none;
-    padding: 8px;
-    cursor: pointer;
+	list-style: none;
+	padding: 8px;
+	cursor: pointer;
 }
+
 #suggestionsList li:hover {
-    background-color: #f0f0f0;
+	background-color: #f0f0f0;
 }
 </style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
 		<div class="container-fluid">
-			<a class="btn" onclick="home()" style="font-size: 24px;"><b>DreamBooks</b></a>
+			<a class="btn ms-5 me-5 text-danger" onclick="home()"
+				style="font-size: 25px;"><b>DreamBooks</b></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -48,15 +51,16 @@ if (sdt == null) {
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<ul class="navbar-nav me-auto ms-5 mb-2 mb-lg-0">
 					<div class="nav-item" style="position: relative;">
 						<input class="form-control me-2" type="search" id="searchInput"
-							placeholder="Tìm kiếm sản phẩm" aria-label="Search"
+							style="width: 800px;" placeholder="Tìm kiếm sản phẩm tại đây"
+							aria-label="Search"
 							value="${search != null && search != '' ? search : ''}">
 						<ul id="suggestionsList"></ul>
 					</div>
 				</ul>
-				<form class="d-flex">
+				<form class="d-flex me-5">
 					<a class="btn" onclick="FormCart('${SDT}', '${pass}')"> <svg
 							xmlns="http://www.w3.org/2000/svg" fill="#737373"
 							viewBox="0 0 24 24" width="24px" height="24px">    <path
@@ -73,8 +77,9 @@ if (sdt == null) {
 			</div>
 		</div>
 	</nav>
-	<div class="row p-3">
-		<div class="col-sm-2 border rounded p-3 mx-auto">
+	<div class="row p-3" style="background-color: #f0f0f0">
+		<div class="col-sm-2 border rounded p-3 mx-auto me-2"
+			style="background-color: #ffffff">
 			<div class="container">
 				<!-- Thể loại sách -->
 				<h6 class="mt-3 mb-2">THỂ LOẠI SÁCH</h6>
@@ -139,9 +144,9 @@ if (sdt == null) {
 
 		</div>
 
-
-		<div class="col-sm-9 d-flex flex-wrap mx-auto">
-			<div class="row">
+		<div class="col-sm-9 border rounded p-1 mx-auto ms-1"
+			style="background-color: #ffffff">
+			<div class="row p-3">
 				<!-- Lặp qua danh sách sách -->
 				<c:forEach var="book" items="${books}">
 					<div class="col-sm-3">
@@ -151,29 +156,25 @@ if (sdt == null) {
 								alt="${book.name}" class="card-img-top">
 							<div class="card-body">
 								<h5 class="card-title">${book.name}</h5>
-								<p class="card-text">Giá gốc: ${book.originalPrice} VND</p>
-								<p class="card-text">Giá bán: ${book.salePrice} VND</p>
+								<p class="card-text text-danger fs-5">${book.salePrice}VND</p>
+								<p class="card-text text-secondary text-decoration-line-through">${book.originalPrice}
+									VND</p>
+							</div>
+							<div class="star-rating">
+								<span class="text-warning">★</span> <span class="text-warning">★</span>
+								<span class="text-warning">★</span> <span class="text-warning">★</span>
+								<span class="text-warning">★</span>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
-
 			</div>
 		</div>
 	</div>
-	<nav aria-label="Page navigation example">
-		<ul class="pagination">
-			<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">Next</a></li>
-		</ul>
-	</nav>
 	<!-- Footer -->
-	<div class="row mt-5" style="background-color: #282a35">
-		<div class="col-sm-2 mt-5"></div>
-		<div class="col-sm-4 mt-5">
+	<div class="row mt-1" style="background-color: #282a35">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-4 mt-4">
 			<div class="d-flex">
 				<div>
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -198,16 +199,16 @@ if (sdt == null) {
 							fill="black" mask="url(#path-2-outside-1_1_881)" />
                     </svg>
 				</div>
-				<div class="ms-2">
-					<h4 class="text-light">dreambook.com</h4>
+				<div class="ms-2 mb-2">
+					<h4 class="text-light">Dreambook.com</h4>
 				</div>
 			</div>
-			<p class="text-light">123 Hung Vuong.</p>
-			<div class="col-sm-2"></div>
-		</div>
-		<div class="col-sm-3 mt-5"></div>
-		<div class="col-sm-3 mt-5">
-			<div class="d-flex">
+			<p class="text-light">Lầu 5, 387-389 Hai Bà Trưng Quận 3 TP
+				HCMCông Ty Cổ Phần Phát Hành Sách TP HCM - Dreambook - 62 Lê Lợi,
+				Quận 1, TP. HCM, Việt Dreambook.com nhận đặt hàng trực tuyến và giao
+				hàng tận nơi. KHÔNG hỗ trợ đặt mua và nhận hàng trực tiếp tại văn
+				phòng cũng như tất cả Hệ Thống Dreambook trên toàn quốc.</p>
+			<div class="d-flex mb-3">
 				<a class="nav-link text-light m-2" href="#"> <svg
 						xmlns="http://www.w3.org/2000/svg" height="24" width="21"
 						viewBox="0 0 448 512">
@@ -230,6 +231,54 @@ if (sdt == null) {
 							d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z" />
                     </svg>
 				</a>
+			</div>
+		</div>
+		<div class="col-sm-1 mt-4"></div>
+		<div class="col-sm-5 mt-4">
+			<div class="d-flex">
+				<div class="container">
+					<div class="row">
+						<!-- Dịch vụ -->
+						<div class="col-md-4" style="color: white;">
+							<h5>DỊCH VỤ</h5>
+							<ul>
+								<li>Điều khoản sử dụng</li>
+								<li>Chính sách bảo mật thông tin cá nhân</li>
+								<li>Chính sách bảo mật thanh toán</li>
+								<li>Giới thiệu Fahasa</li>
+							</ul>
+						</div>
+
+						<!-- Hỗ trợ -->
+						<div class="col-md-4" style="color: white;">
+							<h5>HỖ TRỢ</h5>
+							<ul>
+								<li>Chính sách đổi, trả, hoàn tiền</li>
+								<li>Chính sách bảo hành, bồi hoàn</li>
+								<li>Chính sách vận chuyển</li>
+							</ul>
+						</div>
+
+						<!-- Tài khoản của tôi -->
+						<div class="col-md-4" style="color: white;">
+							<h5>TÀI KHOẢN</h5>
+							<ul>
+								<li>Đăng nhập/Tạo mới tài khoản</li>
+								<li>Thay đổi địa chỉ khách hàng</li>
+								<li>Chi tiết tài khoản</li>
+								<li>Lịch sử mua hàng</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- Liên hệ -->
+					<div class="row mt-3">
+						<div class="col-md-12" style="color: white;">
+							<h5>LIÊN HỆ</h5>
+							<p>Điện thoại: 012345543212</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
