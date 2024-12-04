@@ -17,6 +17,20 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
+	<style type="text/css">
+	/* Đặt khoảng cách xa hơn cho các nút */
+.custom-control {
+    margin-left: 20px; /* Khoảng cách bên trái */
+    margin-right: 20px; /* Khoảng cách bên phải */
+}
+
+/* Thay đổi màu sắc của các nút thành đen */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black; /* Màu đen cho nút */
+}
+	
+	</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
@@ -80,8 +94,8 @@
 			<div class="row">
 				<div class="col">
 					<p>
-						Book ID:
-						<c:out value="${book.id}" />
+						Book category:
+						<c:out value="${book.category}" />
 					</p>
 				</div>
 			</div>
@@ -124,10 +138,50 @@
 		</div>
 		<div class="col-sm-1"></div>
 	</div>
+<div class="container mt-4">
+    <h2>Book Categories</h2>
 
-	<div class="row mt-1" style="background-color: #282a35">
-		<div class="col-sm-1"></div>
-		<div class="col-sm-4 mt-4">
+    <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <!-- Duyệt qua các nhóm sách -->
+            <c:forEach var="bookGroup" items="${booksByCategoryGrouped}">
+                <div class="carousel-item <c:if test="${bookGroup == booksByCategoryGrouped[0]}">active</c:if>">
+                    <div class="row">
+                        <!-- Duyệt qua từng sách trong nhóm -->
+                        <c:forEach var="book" items="${bookGroup}">
+                            <div class="col-md-3">
+                                <div class="card" style="width: 14rem;">
+                                    <img
+				src="<%= request.getContextPath() %>/Images/<c:out value='${book.image}' />"
+				alt="<c:out value='${book.name}' />" class="card-img-top" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">${book.name}</h5>
+                                        <p class="card-text">${book.description}</p>
+                                        <!-- Liên kết tới chi tiết sách với ID sách -->
+                                        <a href="form_detail?bookId=${book.id}" class="btn btn-primary">Xem Chi Tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+
+<button class="carousel-control-prev custom-control" type="button" data-bs-target="#bookCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-control-next custom-control" type="button" data-bs-target="#bookCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+</button>
+
+    </div>
+</div>
+	<div class="row mt-5" style="background-color: #282a35">
+		<div class="col-sm-2 mt-5"></div>
+		<div class="col-sm-4 mt-5">
 			<div class="d-flex">
 				<div>
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
