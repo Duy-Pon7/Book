@@ -7,9 +7,6 @@
 <meta charset="UTF-8">
 <title>Thanh toán</title>
 <script>
-    function showSelectedId(id) {
-        alert('Bạn đã chọn địa chỉ có ID: ' + id);
-    }
     function deleteAddress(id, tongGia, sdt) {
         if (confirm('Bạn có chắc muốn xóa địa chỉ này không?')) {
         	 window.location.href = '/Book/DeleteAddress?tongGia=' + tongGia + '&sdt=' + sdt + '&id=' + id;
@@ -24,7 +21,6 @@
     function submitNewAddress(tongGia, sdt) {
         // Lấy giá trị từ input
         const newAddress = document.getElementById('newAddress').value;
-
         // Kiểm tra nếu giá trị không rỗng trước khi xử lý
         if (newAddress.trim() !== '') {
         	window.location.href = '/Book/AddAddress?tongGia=' + tongGia + '&sdt=' + sdt + '&diaChi=' + newAddress.trim();
@@ -70,7 +66,7 @@
             return;
         }
         // Hiển thị thông tin kiểm tra
-        alert('Bạn đã chọn thanh toán với số tiền: ' + thanhTien + ' VND, SDT: ' + sdt + 'DiaChi: ' + diaChi);
+        alert('Thanh toán thành công');
         window.location.href = '/Book/Pay?tongGia=' + thanhTien + '&sdt=' + sdt + '&diaChi=' + diaChi;     
     }
     function FormCart(sdt) {
@@ -109,18 +105,17 @@
 			<c:forEach var="diaChi" items="${listAddress}">
 				<div class="col-md-4 d-flex">
 					<input type="radio" class="btn-check" name="address"
-						id="address${diaChi.getId()}" autocomplete="off"
-						onclick="showSelectedId(${diaChi.getId()})"> <label
+						id="address${diaChi.getId()}" autocomplete="off"> <label
 						class="btn btn-outline-secondary w-100 p-3 d-flex flex-column justify-content-center"
 						for="address${diaChi.getId()}"> <span
 						>Địa chỉ: ${diaChi.getDiaChi()}</span>
-						<button type="button" class="btn btn-outline-danger btn-sm mt-2" onclick="deleteAddress('${diaChi.getId()}','${tongGia}','${sdt}')">Xóa</button>
+						<button type="button" class="btn btn-outline-warning btn-sm mt-2" onclick="deleteAddress('${diaChi.getId()}','${tongGia}','${sdt}')">Xóa</button>
 					</label>
 				</div>
 			</c:forEach>
 			<div class="col-md-4 d-flex">
 				<button type="button"
-					class="btn btn-outline-info w-100 p-3 d-flex align-items-center justify-content-center"
+					class="btn btn-outline-secondary w-100 p-3 d-flex align-items-center justify-content-center"
 					onclick="openModal()">
 					<span style="font-size: 2rem; color: black; margin-right: 10px;">+</span>
 					<strong style="color: black; margin-top: 5px;">Thêm địa

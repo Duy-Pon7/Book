@@ -53,7 +53,7 @@ public class Read extends HttpServlet {
 			int paramIndex = 1;
 			if (theLoai != null && !"empty".equals(theLoai)) { ps.setString(paramIndex++, theLoai);}
 			if (nxb != null && !"empty".equals(nxb)) { ps.setString(paramIndex++, nxb);}
-			if (search != null && !"empty".equals(search)) { ps.setString(paramIndex++, search);}
+			if (search != null && !"empty".equals(search)) { ps.setString(paramIndex++, search);} else {search = "";}
 			if (giaMin != -1.0f) { ps.setDouble(paramIndex++, giaMin);}
 			if (giaMax != -1.0f) { ps.setDouble(paramIndex++, giaMax);}
 			ResultSet rs = ps.executeQuery();

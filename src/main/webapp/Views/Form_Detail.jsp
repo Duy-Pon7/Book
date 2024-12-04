@@ -21,7 +21,8 @@
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
 		<div class="container-fluid">
-			<a class="btn" onclick="home()" style="font-size: 24px;"><b>DreamBooks</b></a>
+			<a class="btn ms-4"><b></b></a> <a class="btn ms-5 me-5 text-danger"
+				onclick="home()" style="font-size: 25px;"><b>DreamBooks</b></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -29,27 +30,9 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link" href="#">Sách
-							tiếng Việt</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">English
-							Books</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Sách giáo
-							khoa </a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Tiểu học</a></li>
-							<li><a class="dropdown-item" href="#">THCS</a></li>
-							<li><a class="dropdown-item" href="#">THPT</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Đại học</a></li>
-						</ul></li>
-					<li class="nav-item"><input class="form-control me-2"
-						type="search" placeholder="Tìm kiếm sản phẩm" aria-label="Search"></li>
-
+				<ul class="navbar-nav me-auto ms-4 mb-2 mb-lg-0">
 				</ul>
-				<form class="d-flex">
+				<form class="d-flex me-5">
 					<a class="btn" onclick="FormCart('${SDT}', '${pass}')"> <svg
 							xmlns="http://www.w3.org/2000/svg" fill="#737373"
 							viewBox="0 0 24 24" width="24px" height="24px">    <path
@@ -63,6 +46,7 @@
 						<p class="fw-light m-0">Tài khoản</p>
 					</a>
 				</form>
+				<ul class="navbar-nav me-3">
 			</div>
 		</div>
 	</nav>
@@ -117,11 +101,14 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-3">
-					<input type="text" class="form-control" id="quantity"
-						placeholder="Số lượng" aria-label="Username"
-						aria-describedby="addon-wrapping">
+				<div class="d-flex align-items-center">
+					<label for="quantity" class="me-3">Số lượng :</label> <input
+						type="number" class="form-control" id="quantity"
+						placeholder="Số lượng" min="1" step="1" value="1"
+						aria-label="Quantity" aria-describedby="addon-wrapping"
+						style="width: 70px;">
 				</div>
+
 			</div>
 			<div class="row d-flex justify-content-center mt-5">
 				<div class="col-auto">
@@ -138,9 +125,9 @@
 		<div class="col-sm-1"></div>
 	</div>
 
-	<div class="row mt-5" style="background-color: #282a35">
-		<div class="col-sm-2 mt-5"></div>
-		<div class="col-sm-4 mt-5">
+	<div class="row mt-1" style="background-color: #282a35">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-4 mt-4">
 			<div class="d-flex">
 				<div>
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -165,16 +152,16 @@
 							fill="black" mask="url(#path-2-outside-1_1_881)" />
                     </svg>
 				</div>
-				<div class="ms-2">
-					<h4 class="text-light">dreambook.com</h4>
+				<div class="ms-2 mb-2">
+					<h4 class="text-light">Dreambook.com</h4>
 				</div>
 			</div>
-			<p class="text-light">123 Hung Vuong.</p>
-			<div class="col-sm-2"></div>
-		</div>
-		<div class="col-sm-3 mt-5"></div>
-		<div class="col-sm-3 mt-5">
-			<div class="d-flex">
+			<p class="text-light">Lầu 5, 387-389 Hai Bà Trưng Quận 3 TP
+				HCMCông Ty Cổ Phần Phát Hành Sách TP HCM - Dreambook - 62 Lê Lợi,
+				Quận 1, TP. HCM, Việt Dreambook.com nhận đặt hàng trực tuyến và giao
+				hàng tận nơi. KHÔNG hỗ trợ đặt mua và nhận hàng trực tiếp tại văn
+				phòng cũng như tất cả Hệ Thống Dreambook trên toàn quốc.</p>
+			<div class="d-flex mb-3">
 				<a class="nav-link text-light m-2" href="#"> <svg
 						xmlns="http://www.w3.org/2000/svg" height="24" width="21"
 						viewBox="0 0 448 512">
@@ -199,8 +186,56 @@
 				</a>
 			</div>
 		</div>
-	</div>
+		<div class="col-sm-1 mt-4"></div>
+		<div class="col-sm-5 mt-4">
+			<div class="d-flex">
+				<div class="container">
+					<div class="row">
+						<!-- Dịch vụ -->
+						<div class="col-md-4" style="color: white;">
+							<h5>DỊCH VỤ</h5>
+							<ul>
+								<li>Điều khoản sử dụng</li>
+								<li>Chính sách bảo mật thông tin cá nhân</li>
+								<li>Chính sách bảo mật thanh toán</li>
+								<li>Giới thiệu Fahasa</li>
+							</ul>
+						</div>
 
+						<!-- Hỗ trợ -->
+						<div class="col-md-4" style="color: white;">
+							<h5>HỖ TRỢ</h5>
+							<ul>
+								<li>Chính sách đổi, trả, hoàn tiền</li>
+								<li>Chính sách bảo hành, bồi hoàn</li>
+								<li>Chính sách vận chuyển</li>
+							</ul>
+						</div>
+
+						<!-- Tài khoản của tôi -->
+						<div class="col-md-4" style="color: white;">
+							<h5>TÀI KHOẢN</h5>
+							<ul>
+								<li>Đăng nhập/Tạo mới tài khoản</li>
+								<li>Thay đổi địa chỉ khách hàng</li>
+								<li>Chi tiết tài khoản</li>
+								<li>Lịch sử mua hàng</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- Liên hệ -->
+					<div class="row mt-3">
+						<div class="col-md-12" style="color: white;">
+							<h5>LIÊN HỆ</h5>
+							<p>Điện thoại: 012345543212</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -214,32 +249,19 @@
 
 	  // Add event listener to the "Add to Cart" button
 	  document.getElementById('add-to-cart').addEventListener('click', function() {
-	    // Get the quantity from the input field
-	    var quantity = document.getElementById('quantity').value; // Quantity
-
-	    // Show the alert with book ID, quantity, and SDT
+	    var quantity = document.getElementById('quantity').value;
 	    if (sdt) {
-	      alert('Book ID: ' + bookId + '\nQuantity: ' + quantity + '\nPhone: ' + sdt);
+	        alert('Sản phẩm đã được thêm vào giỏ hàng!');
+		    var btn = "atc";
+		    selectBook(bookId, quantity, sdt, btn);
 	    } else {
-	      alert('Book ID: ' + bookId + '\nQuantity: ' + quantity + '\nPhone number is not available.');
+	        alert('Thêm vào giỏ hàng thất bại. Vui lòng kiểm tra lại thông tin!');
 	    }
-	    var btn = "atc";
-	    // Redirect to a new servlet with the bookId, quantity, and sdt as query parameters
-	    selectBook(bookId, quantity, sdt, btn);
 	  });
-	// Add event listener to the "Add to Cart" button
+	   // Add event listener to the "buy now" button
 	  document.getElementById('buy-now').addEventListener('click', function() {
-	    // Get the quantity from the input field
-	    var quantity = document.getElementById('quantity').value; // Quantity
-
-	    // Show the alert with book ID, quantity, and SDT
-	    if (sdt) {
-	      alert('Book ID: ' + bookId + '\nQuantity: ' + quantity + '\nPhone: ' + sdt);
-	    } else {
-	      alert('Book ID: ' + bookId + '\nQuantity: ' + quantity + '\nPhone number is not available.');
-	    }
+	    var quantity = document.getElementById('quantity').value; 
 	    var btn = "bn";
-	    // Redirect to a new servlet with the bookId, quantity, and sdt as query parameters
 	    selectBook(bookId, quantity, sdt, btn);
 	  });
 		
