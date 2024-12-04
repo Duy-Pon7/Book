@@ -44,9 +44,12 @@ public class Form_Login extends HttpServlet {
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
                         // Đăng nhập thành công
+                    	String role = rs.getString("VaiTro");
                         HttpSession session = request.getSession();
+                        
                         session.setAttribute("SDT", username);
                         session.setAttribute("pass", password); 
+                        session.setAttribute("role", role); 
                         response.sendRedirect(request.getContextPath() + "/read");
                     } else {
                         // Đăng nhập thất bại
