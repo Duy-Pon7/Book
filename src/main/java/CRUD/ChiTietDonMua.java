@@ -40,13 +40,13 @@ public class ChiTietDonMua extends HttpServlet {
             	for (int i = 0; i < list.size(); i++) {
             		ThongTinDonMuaModel item = list.get(i);
                     out.write("<tr>");
-                    out.write("<td>" + item.getMaSach() + "</td>");
+                    out.write("<td style='text-align: center;'>" + item.getMaSach() + "</td>");
                     out.write("<td>" + item.getTenSach() + "</td>");
                     out.write("<td class='text-center'><img src='" + request.getContextPath() + "/Images/" + item.getImage() + "' "
                             + "alt='" + item.getTenSach() + "' class='img-thumbnail' "
                             + "style='width: 80px; height: auto;'></td>");
-                    out.write("<td>" + item.getGiaBan() + "</td>");
-                    out.write("<td>" + item.getSoluong() + "</td>");
+                    out.write("<td class='text-center'>" + item.getGiaBan() + "</td>");
+                    out.write("<td class='text-center'>" + item.getSoluong() + "</td>");
                     out.write("</tr>");
                 }
             }

@@ -53,7 +53,7 @@ public class Form_Create extends HttpServlet {
 
                     if (rowsAffected > 0) {
                         // Notify and redirect to Form_Login.jsp
-                        request.setAttribute("message", "Tạo tài khoản thành công! Vui lòng đăng nhập.");
+                        request.setAttribute("message", "Tạo tài khoản thành công! Vui lòng đăng nhập lại.");
                         request.getRequestDispatcher("Views/Form_Login.jsp").forward(request, response);
                     } else {
                         request.setAttribute("message", "Lỗi khi tạo tài khoản.");

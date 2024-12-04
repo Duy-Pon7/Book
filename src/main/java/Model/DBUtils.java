@@ -157,12 +157,11 @@ public class DBUtils {
 	    }
 	    return list; // Trả về danh sách đơn mua
 	}
-	public static List<DonMuaModel> LoadDonMua(Connection conn, String SDT) {
+	public static List<DonMuaModel> LoadDonMua(Connection conn) {
 	    List<DonMuaModel> list = new ArrayList<>();
-	    String query = "SELECT * from DONMUA where SDT = ?";
+	    String query = "SELECT * from DONMUA";
 	    try {
 	        PreparedStatement ps = conn.prepareStatement(query);
-	        ps.setString(1, SDT);
 	        ResultSet rs = ps.executeQuery();
 
 	        while (rs.next()) {
@@ -349,27 +348,5 @@ public class DBUtils {
 			ex.printStackTrace();
 			return false;
 		}
-	}
-	
-	public static List<OderModel> LoadInfOder(Connection conn, String phone) {
-		List<OderModel> list = new ArrayList<>();
-		String query = "SELECT g.Id, s.Image, s.TenSach, g.SoLuong, s.DonGia, (g.SoLuong * s.DonGia) AS TongTien "
-				+ "FROM GIOHANG g " + "JOIN SACH s ON g.MaSach = s.MaSach " + "WHERE g.Phone = ?";
-		try {
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, phone); // Set giá trị của tham số số điện thoại (sdt)
-
-			ResultSet rs = ps.executeQuery();
-
-//			while (rs.next()) {
-//				// Tạo đối tượng Cart và thêm dữ liệu vào
-//				OderModel cart = new OderModel(rs.getInt("Id"), rs.getString("Image"), rs.getString("TenSach"),
-//						rs.getInt("SoLuong"), rs.getFloat("DonGia"), rs.getFloat("TongTien"));
-//				list.add(cart);
-//			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return list; // Trả về danh sách giỏ hàng
 	}
 }
