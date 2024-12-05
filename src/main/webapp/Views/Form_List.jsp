@@ -38,9 +38,9 @@ if (sdt == null) {
 	background-color: #f0f0f0;
 }
 /* Ẩn mũi tên xuống trên nút dropdown */
-		.dropdown-toggle::after {
-    		display: none;
-		}  
+.dropdown-toggle::after {
+	display: none;
+}
 </style>
 </head>
 <body>
@@ -165,8 +165,11 @@ if (sdt == null) {
 					<div class="col-sm-3">
 						<div class="card m-2 btn" style="width: 14rem;"
 							onclick="selectBook('${book.id}')">
-							<img src="<%= request.getContextPath() %>/Images/${book.image}"
-								alt="${book.name}" class="card-img-top">
+							<div class="d-flex justify-content-center">
+								<img src="<%= request.getContextPath() %>/Images/${book.image}"
+									alt="${book.name}" class="card-img-top"
+									style="width: 7rem; height: 8rem; object-fit: cover;">
+							</div>
 							<div class="card-body">
 								<h5 class="card-title">${book.name}</h5>
 								<p class="card-text text-danger fs-5">${book.salePrice}VND</p>
@@ -179,6 +182,7 @@ if (sdt == null) {
 								<span class="text-warning">★</span>
 							</div>
 						</div>
+
 					</div>
 				</c:forEach>
 			</div>

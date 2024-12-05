@@ -17,24 +17,24 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
-	<style type="text/css">
-	/* Đặt khoảng cách xa hơn cho các nút */
+<style type="text/css">
 .custom-control {
-    margin-left: 20px; /* Khoảng cách bên trái */
-    margin-right: 20px; /* Khoảng cách bên phải */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
 }
 
+
 /* Thay đổi màu sắc của các nút thành đen */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: black; /* Màu đen cho nút */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+	background-color: black; /* Màu đen cho nút */
 }
 /* Ẩn mũi tên xuống trên nút dropdown */
-		.dropdown-toggle::after {
-    		display: none;
-		}  
-	
-	</style>
+.dropdown-toggle::after {
+	display: none;
+}
+</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
@@ -67,9 +67,12 @@
 							<p class="fw-light m-0">Tài khoản</p> </a>
 						<!-- Dropdown menu -->
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-							<li><a class="dropdown-item" onclick="CheckRole1('${SDT}', '${role}')">Quản lý sản phẩm</a></li>
-							<li><a class="dropdown-item" onclick="CheckRole2('${SDT}', '${role}')">Quản lý đơn bán</a></li>
-							<li><a class="dropdown-item" onclick="LogOut()">Đăng xuất</a></li>
+							<li><a class="dropdown-item"
+								onclick="CheckRole1('${SDT}', '${role}')">Quản lý sản phẩm</a></li>
+							<li><a class="dropdown-item"
+								onclick="CheckRole2('${SDT}', '${role}')">Quản lý đơn bán</a></li>
+							<li><a class="dropdown-item" onclick="LogOut()">Đăng
+									xuất</a></li>
 						</ul>
 					</div>
 				</form>
@@ -82,10 +85,24 @@
 		<div class="col-sm-5 border rounded-3 m-2"
 			style="background-color: #ffffff">
 			<!-- Hiển thị hình ảnh từ thuộc tính "image" -->
-			<img
-				src="<%= request.getContextPath() %>/Images/<c:out value='${book.image}' />"
-				alt="<c:out value='${book.name}' />" class="card-img-top" />
+			<div class="d-flex justify-content-center">
+				<img
+					src="<%= request.getContextPath() %>/Images/<c:out value='${book.image}' />"
+					alt="<c:out value='${book.name}' />" class="card-img-top mt-2"
+					style="width: 400px; height: 500px; object-fit: cover;">
+			</div>
+			<div class="row d-flex justify-content-center mt-5 mb-3">
+				<div class="col-auto">
+					<button type="button" class="btn btn-outline-danger"
+						id="add-to-cart">Thêm vào giỏ hàng</button>
+				</div>
+				<div class="col-auto">
+					<button type="button" class="btn btn-danger" id="buy-now">Mua
+						ngay</button>
+				</div>
+			</div>
 		</div>
+
 		<div class="col-sm-5 border rounded-3 m-2"
 			style="background-color: #ffffff">
 			<!-- Hiển thị tiêu đề từ thuộc tính "name" -->
@@ -116,16 +133,18 @@
 				<div class="col-auto">
 					<p class="fs-2 text-danger" style="font-weight: bold;">
 						<c:out value="${book.salePrice}" />
+						VND
 					</p>
-
 				</div>
 				<div class="col-auto">
 					<p class="fs-6 mt-3 text-secondary">
 						<del>
 							<c:out value="${book.originalPrice}" />
+							VND
 						</del>
 					</p>
 				</div>
+
 			</div>
 			<div class="row">
 				<div class="d-flex align-items-center">
@@ -135,63 +154,89 @@
 						aria-label="Quantity" aria-describedby="addon-wrapping"
 						style="width: 70px;">
 				</div>
-
 			</div>
-			<div class="row d-flex justify-content-center mt-5">
-				<div class="col-auto">
-					<button type="button" class="btn btn-outline-danger"
-						id="add-to-cart">Thêm vào giỏ hàng</button>
-				</div>
-				<div class="col-auto">
-					<button type="button" class="btn btn-danger" id="buy-now">Mua
-						ngay</button>
+			<div class="container my-5">
+				<div class="card p-4">
+					<h2 class="card-title mb-4">Thông tin chi tiết</h2>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="product-code" class="form-label">Mã hàng:</label>
+							<p id="product-code" class="form-text">${book.id}</p>
+						</div>
+
+						<div class="col-md-6 mb-3">
+							<label for="supplier" class="form-label">Tên NXB:</label>
+							<p id="product-code" class="form-text">${book.publisher}</p>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="brand" class="form-label">Tác giả:</label>
+							<p id="product-code" class="form-text">${book.author}</p>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="brand" class="form-label">Số lượng tồn kho:</label>
+							<p id="product-code" class="form-text">${book.quantity}</p>
+						</div>
+						<div>
+							<div>
+								<h2 class="card-title">Mô tả</h2>
+								<p id="product-code" class="text">${book.description}</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-
 		</div>
 		<div class="col-sm-1"></div>
 	</div>
-<div class="container mt-4">
-    <h2>Book Categories</h2>
+	<div class="container mt-5">
+		<h2 class="text-center mb-4">Giới thiệu</h2>
 
-    <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <!-- Duyệt qua các nhóm sách -->
-            <c:forEach var="bookGroup" items="${booksByCategoryGrouped}">
-                <div class="carousel-item <c:if test="${bookGroup == booksByCategoryGrouped[0]}">active</c:if>">
-                    <div class="row">
-                        <!-- Duyệt qua từng sách trong nhóm -->
-                        <c:forEach var="book" items="${bookGroup}">
-                            <div class="col-md-3">
-                                <div class="card" style="width: 14rem;">
-                                    <img
-				src="<%= request.getContextPath() %>/Images/<c:out value='${book.image}' />"
-				alt="<c:out value='${book.name}' />" class="card-img-top" />
-                                    <div class="card-body">
-                                        <h5 class="card-title">${book.name}</h5>
-                                        <p class="card-text">${book.description}</p>
-                                        <!-- Liên kết tới chi tiết sách với ID sách -->
-                                        <a href="form_detail?bookId=${book.id}" class="btn btn-primary">Xem Chi Tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
+		<div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner">
+				<!-- Loop through book groups -->
+				<c:forEach var="bookGroup" items="${booksByCategoryGrouped}">
+					<div
+						class="carousel-item <c:if test='${bookGroup == booksByCategoryGrouped[0]}'>active</c:if>">
+						<div class="row justify-content-center">
+							<!-- Loop through books in the group -->
+							<c:forEach var="book" items="${bookGroup}">
+								<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+									<div class="card shadow-sm h-100">
+										<img
+											src="<%= request.getContextPath() %>/Images/<c:out value='${book.image}' />"
+											alt="<c:out value='${book.name}' />"
+											class="card-img-top img-fluid"
+											style="height: 200px; object-fit: cover;">
+										<div class="card-body d-flex flex-column">
+											<h5 class="card-title">${book.name}</h5>
+											<p class="card-text text-danger fs-5">${book.salePrice}VND</p>
+											<p class="card-text text-secondary text-decoration-line-through">${book.originalPrice}VND</p>
+										</div>
+										<div class="card-body d-flex flex-column">	
+											<a href="form_detail?bookId=${book.id}"
+												class="btn btn-primary mt-auto">Xem chi tiết</a>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
 
-<button class="carousel-control-prev custom-control" type="button" data-bs-target="#bookCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-</button>
-<button class="carousel-control-next custom-control" type="button" data-bs-target="#bookCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-</button>
-
-    </div>
-</div>
+			<!-- Carousel controls -->
+			<button class="carousel-control-prev custom-control" type="button"
+				data-bs-target="#bookCarousel" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon bg-dark rounded-circle"
+					aria-hidden="true"></span> <span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next custom-control" type="button"
+				data-bs-target="#bookCarousel" data-bs-slide="next">
+				<span class="carousel-control-next-icon bg-dark rounded-circle"
+					aria-hidden="true"></span> <span class="visually-hidden">Next</span>
+			</button>
+		</div>
+	</div>
 	<div class="row mt-5" style="background-color: #282a35">
 		<div class="col-sm-2 mt-5"></div>
 		<div class="col-sm-4 mt-5">
@@ -302,12 +347,11 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-		crossorigin="anonymous">
-		
+		crossorigin="anonymous">		
 	</script>
 	<script>
 	  // Get book ID and SDT from the server-side
