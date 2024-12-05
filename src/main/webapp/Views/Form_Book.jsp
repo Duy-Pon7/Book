@@ -101,21 +101,21 @@
 			        <label for="soLuong" class="form-label">Số Lượng Tồn</label>
 			        <input type="number" id="soLuong" name="soLuong" class="form-control" placeholder="Số Lượng Tồn" required>
 			    </div>
-			    <div class="col-md-3">
-			        <label for="moTa" class="form-label">Mô Tả</label>
-			        <input type="text" id="moTa" name="moTa" class="form-control" placeholder="Mô Tả" required>
-			    </div>
-			    <div class="col-md-3">
+			</div>
+			<div>
+                <label for="moTa" class="form-label">Mô Tả</label>
+                <textarea class="form-control" aria-label="With textarea" id="moTa" name="moTa"></textarea>
+            </div>
+            <div class="row g-3">
+	            <div class="col-md-3">
 				    <label for="image" class="form-label">Hình Ảnh</label>
-				    <input type="file" id="image" name="image" class="form-control" accept="image/*">
+					<input type="file" id="image" name="image" class="form-control" accept="image/*">
 				    <input type="hidden" id="imageName" name="nameimg">
 				</div>
-			</div>
-			<div class="row g-3">
-			    <div class="col-md-3">
-				    <img id="currentImage" src="" class="img-thumbnail mt-3" style="width: 500px; height: auto;">
+				<div class="col-md-3">
+				    <img id="currentImage" src="https://photo.znews.vn/w660/Uploaded/natmts/2023_02_03/z4080571344877_dcc05eb033d9e910039ad77df6eb1b05.jpg" class="img-thumbnail mt-3" style="width: 250px; height: 200px;">
 				</div>
-			</div>
+            </div>
 
 		    
 		    <!-- Nút Thêm và Sửa -->
@@ -217,13 +217,6 @@
 	                            <input type="text" id="nxb" name="nxb" class="form-control" placeholder="Nhà Xuất Bản" required>
 	                        </div>
 	                        <div class="col-md-6">
-	                            <label for="image" class="form-label">Hình Ảnh</label>
-	                            <input type="file" id="image" name="image" class="form-control" accept="image/*">
-	                        </div>
-	                        <div class="col-md-6">
-	                            <img id="currentImage" src="" alt="Hình Ảnh" class="img-thumbnail mt-2" style="width: 100%; height: auto;">
-	                        </div>
-	                        <div class="col-md-6">
 	                            <label for="giaGoc" class="form-label">Giá Gốc</label>
 	                            <input type="number" step="0.01" id="giaGoc" name="giaGoc" class="form-control" placeholder="Giá Gốc" required>
 	                        </div>
@@ -235,9 +228,16 @@
 	                            <label for="soLuong" class="form-label">Số Lượng Tồn</label>
 	                            <input type="number" id="soLuong" name="soLuong" class="form-control" placeholder="Số Lượng Tồn" required>
 	                        </div>
-	                        <div class="col-md-6">
+	                        <div>
 	                            <label for="moTa" class="form-label">Mô Tả</label>
-	                            <input type="text" id="moTa" name="moTa" class="form-control" placeholder="Mô Tả" required>
+	                            <textarea class="form-control" aria-label="With textarea" id="moTa" name="moTa"></textarea>
+	                        </div>
+	                        <div class="col-md-6">
+	                            <label for="image" class="form-label">Chọn Ảnh</label>
+								<input type="file" id="image" name="image" class="form-control" accept="image/*">
+	                        </div>
+	                        <div class="col-md-6">
+	                            <img id="currentImage" src="https://photo.znews.vn/w660/Uploaded/natmts/2023_02_03/z4080571344877_dcc05eb033d9e910039ad77df6eb1b05.jpg" alt="Hình Ảnh" class="img-thumbnail mt-2" style="width: 200px; height: 170px;">
 	                        </div>
 	                    </div>
 	
