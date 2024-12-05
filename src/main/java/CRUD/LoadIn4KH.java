@@ -22,21 +22,7 @@ public class LoadIn4KH extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try (Connection conn = Database.getConnection()) {
             String sdt = request.getParameter("sdt");
-            
-            // In thông tin sdt ra console
-            System.out.println("Số điện thoại nhận được: " + sdt);
-            
             List<KhachHangModel> listKH = DBUtils.layIn4KH(conn, sdt);
-            
-            // Kiểm tra và in danh sách khách hàng ra console
-            if (listKH.isEmpty()) {
-                System.out.println("Không tìm thấy khách hàng.");
-            } else {
-                System.out.println("Danh sách khách hàng: ");
-                for (KhachHangModel kh : listKH) {
-                    System.out.println("Khách hàng: " + kh.getHo() + " " + kh.getTen() + ", SĐT: " + kh.getsDT() + ", Địa chỉ: " + kh.getDiaChi());
-                }
-            }
 
             // Thiết lập kiểu trả về là HTML
             response.setContentType("text/html");

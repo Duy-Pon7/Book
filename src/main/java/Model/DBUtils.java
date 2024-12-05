@@ -12,8 +12,22 @@ import java.sql.Statement;  // Đảm bảo bạn đã import lớp Statement
 
 
 public class DBUtils {
+	public static boolean updateKhachHang(Connection conn, KhachHangModel KH){
+        String query = "UPDATE TAIKHOAN SET MatKhau = ?, Ho = ?, Ten = ?, DiaChi = ? WHERE SDT = ?";
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+        	ps.setString(1, KH.getMatKhau());
+            ps.setString(2, KH.getHo());
+            ps.setString(3, KH.getTen());
+            ps.setString(4, KH.getDiaChi());
+            ps.setString(5, KH.getsDT());
+            return ps.executeUpdate() > 0;
+        }catch (Exception ex) {
+		    ex.printStackTrace(); 
+		    return false; 
+		}
+    }
 	public static List<KhachHangModel> layIn4KH(Connection conn, String sdt){
-		String query = "SELECT SDT, Ho, Ten, DiaChi from TAIKHOAN where SDT = ?";
+		String query = "SELECT * from TAIKHOAN where SDT = ?";
 		List<KhachHangModel> kh = new ArrayList<>();
 		try { 
 				PreparedStatement ps = conn.prepareStatement(query);
@@ -22,6 +36,7 @@ public class DBUtils {
 		        while (rs.next()) {
 		            kh.add(new KhachHangModel(
 		                rs.getString("SDT"),
+		                rs.getString("MatKhau"),
 		                rs.getString("Ho"),
 		                rs.getString("Ten"),
 		                rs.getString("DiaChi")
