@@ -37,6 +37,12 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
+	<style>
+		body {
+  			background-color:  #f0f0f0;
+  			margin: 0; 
+		}
+	</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
@@ -66,12 +72,9 @@
 		</div>
 	</nav>
 	<div class="container-fluid">
-		<!-- Nền xám bao quanh toàn bộ trang -->
 		<div class="container mt-3 bg-white p-3 rounded shadow">
-			<!-- Nền trắng và các thuộc tính khác cho phần giỏ hàng -->
 			<h1 class="text-center mb-4">Giỏ hàng của bạn</h1>
 			<div class="row">
-				<!-- Phần bên trái: Bảng danh sách sản phẩm -->
 				<div class="col-md-9">
 					<table class="table table-bordered">
 						<thead class="table">
@@ -109,8 +112,6 @@
 						</tbody>
 					</table>
 				</div>
-
-				<!-- Phần bên phải: Thông tin tổng tiền và nút hành động -->
 				<div class="col-md-3">
 					<div class="border p-4 border-bordered">
 						<h5 class="mb-3">
@@ -120,7 +121,6 @@
 									<c:set var="total" value="${total + item.getTotal()}" />
 								</c:forEach> ${total} VND</th>
 						</h5>
-						<!-- Nút hành động -->
 						<button class="btn btn-info w-100 mt-2"
 							onclick="submitPayment('${total}','${sdt}')">Thanh toán</button>
 						<button class="btn btn-secondary w-100 mt-2" onclick="home()">Tiếp
@@ -130,10 +130,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-oBqDVmMz4fnFO9gyb4cFw3ATBwWfqw6nfbu7f2e9KAi6mNpQ8dW9KKbBn9Plx0x4"

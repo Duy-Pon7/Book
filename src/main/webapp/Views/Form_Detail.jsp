@@ -19,18 +19,14 @@
 	crossorigin="anonymous">
 <style type="text/css">
 .custom-control {
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3rem;
-    height: 3rem;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 3rem;
+	height: 3rem;
 }
-
-
-/* Thay đổi màu sắc của các nút thành đen */
 .carousel-control-prev-icon, .carousel-control-next-icon {
-	background-color: black; /* Màu đen cho nút */
+	background-color: black; 
 }
-/* Ẩn mũi tên xuống trên nút dropdown */
 .dropdown-toggle::after {
 	display: none;
 }
@@ -65,7 +61,6 @@
 							<path
 									d="M 12 3 C 9.8027056 3 8 4.8027056 8 7 C 8 9.1972944 9.8027056 11 12 11 C 14.197294 11 16 9.1972944 16 7 C 16 4.8027056 14.197294 3 12 3 z M 12 5 C 13.116414 5 14 5.8835859 14 7 C 14 8.1164141 13.116414 9 12 9 C 10.883586 9 10 8.1164141 10 7 C 10 5.8835859 10.883586 5 12 5 z M 12 14 C 10.255047 14 8.1871638 14.409783 6.4492188 15.095703 C 5.5802462 15.438663 4.7946961 15.84605 4.1660156 16.369141 C 3.5373351 16.892231 3 17.599384 3 18.5 L 3 21 L 21 21 L 21 20 L 21 18.5 C 21 17.599384 20.462665 16.892231 19.833984 16.369141 C 19.205304 15.84605 18.419754 15.438663 17.550781 15.095703 C 15.812836 14.409783 13.744953 14 12 14 z M 12 16 C 13.414047 16 15.346055 16.373999 16.818359 16.955078 C 17.554512 17.245618 18.176961 17.591965 18.554688 17.90625 C 18.932412 18.220535 19 18.434616 19 18.5 L 19 19 L 5 19 L 5 18.5 C 5 18.434616 5.0675867 18.220535 5.4453125 17.90625 C 5.8230383 17.591965 6.4454882 17.245618 7.1816406 16.955078 C 8.6539455 16.373999 10.585953 16 12 16 z" /></svg>
 							<p class="fw-light m-0">Tài khoản</p> </a>
-						<!-- Dropdown menu -->
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
 							<li><a class="dropdown-item"
 								onclick="CheckRole1('${SDT}', '${role}')">Quản lý sản phẩm</a></li>
@@ -82,16 +77,15 @@
 	</nav>
 	<div class="row" style="background-color: #f0f0f0">
 		<div class="col-sm-1"></div>
-		<div class="col-sm-5 border rounded-3 m-2"
+		<div class="col-sm-4 border rounded-3 m-2"
 			style="background-color: #ffffff">
-			<!-- Hiển thị hình ảnh từ thuộc tính "image" -->
 			<div class="d-flex justify-content-center">
 				<img
 					src="<%= request.getContextPath() %>/Images/<c:out value='${book.image}' />"
-					alt="<c:out value='${book.name}' />" class="card-img-top mt-2"
-					style="width: 400px; height: 500px; object-fit: cover;">
+					alt="<c:out value='${book.name}' />" class="card-img-top mt-3"
+					style="width: 350px; height: 550px; object-fit: cover;">
 			</div>
-			<div class="row d-flex justify-content-center mt-5 mb-3">
+			<div class="row d-flex justify-content-center mt-3 mb-3">
 				<div class="col-auto">
 					<button type="button" class="btn btn-outline-danger"
 						id="add-to-cart">Thêm vào giỏ hàng</button>
@@ -103,9 +97,8 @@
 			</div>
 		</div>
 
-		<div class="col-sm-5 border rounded-3 m-2"
+		<div class="col-sm-6 border rounded-3 m-2"
 			style="background-color: #ffffff">
-			<!-- Hiển thị tiêu đề từ thuộc tính "name" -->
 			<h3 class="mt-2">
 				<c:out value="${book.name}" />
 			</h3>
@@ -124,7 +117,7 @@
 			<div class="row">
 				<div class="col">
 					<p>
-						Book category:
+						Thể loại:
 						<c:out value="${book.category}" />
 					</p>
 				</div>
@@ -155,7 +148,7 @@
 						style="width: 70px;">
 				</div>
 			</div>
-			<div class="container my-5">
+			<div class="container mt-4 mb-3">
 				<div class="card p-4">
 					<h2 class="card-title mb-4">Thông tin chi tiết</h2>
 					<div class="row">
@@ -190,23 +183,22 @@
 	</div>
 	<div class="container mt-5">
 		<h2 class="text-center mb-4">Giới thiệu</h2>
-
 		<div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
 			<div class="carousel-inner">
-				<!-- Loop through book groups -->
 				<c:forEach var="bookGroup" items="${booksByCategoryGrouped}">
 					<div
 						class="carousel-item <c:if test='${bookGroup == booksByCategoryGrouped[0]}'>active</c:if>">
 						<div class="row justify-content-center">
-							<!-- Loop through books in the group -->
 							<c:forEach var="book" items="${bookGroup}">
 								<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
 									<div class="card shadow-sm h-100">
-										<img
-											src="<%= request.getContextPath() %>/Images/<c:out value='${book.image}' />"
-											alt="<c:out value='${book.name}' />"
-											class="card-img-top img-fluid"
-											style="height: 200px; object-fit: cover;">
+										<div class="d-flex justify-content-center mt-1">
+											<img
+												src="<%= request.getContextPath() %>/Images/<c:out value='${book.image}' />"
+												alt="<c:out value='${book.name}' />"
+												class="card-img-top img-fluid"
+												style="height: 230px; width: 200px; object-fit: cover;">
+										</div>
 										<div class="card-body d-flex flex-column">
 											<h5 class="card-title">${book.name}</h5>
 											<p class="card-text text-danger fs-5">${book.salePrice}VND</p>
@@ -223,8 +215,6 @@
 					</div>
 				</c:forEach>
 			</div>
-
-			<!-- Carousel controls -->
 			<button class="carousel-control-prev custom-control" type="button"
 				data-bs-target="#bookCarousel" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon bg-dark rounded-circle"
@@ -237,9 +227,9 @@
 			</button>
 		</div>
 	</div>
-	<div class="row mt-5" style="background-color: #282a35">
-		<div class="col-sm-2 mt-5"></div>
-		<div class="col-sm-4 mt-5">
+	<div class="row mt-1" style="background-color: #282a35">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-4 mt-4">
 			<div class="d-flex">
 				<div>
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -303,7 +293,6 @@
 			<div class="d-flex">
 				<div class="container">
 					<div class="row">
-						<!-- Dịch vụ -->
 						<div class="col-md-4" style="color: white;">
 							<h5>DỊCH VỤ</h5>
 							<ul>
@@ -313,8 +302,6 @@
 								<li>Giới thiệu Fahasa</li>
 							</ul>
 						</div>
-
-						<!-- Hỗ trợ -->
 						<div class="col-md-4" style="color: white;">
 							<h5>HỖ TRỢ</h5>
 							<ul>
@@ -323,8 +310,6 @@
 								<li>Chính sách vận chuyển</li>
 							</ul>
 						</div>
-
-						<!-- Tài khoản của tôi -->
 						<div class="col-md-4" style="color: white;">
 							<h5>TÀI KHOẢN</h5>
 							<ul>
@@ -335,8 +320,6 @@
 							</ul>
 						</div>
 					</div>
-
-					<!-- Liên hệ -->
 					<div class="row mt-3">
 						<div class="col-md-12" style="color: white;">
 							<h5>LIÊN HỆ</h5>
@@ -347,7 +330,6 @@
 			</div>
 		</div>
 	</div>
-
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -357,7 +339,6 @@
 	  // Get book ID and SDT from the server-side
 	  var bookId = '${book.id}';  // Book ID from the server
 	  var sdt = '<%= session.getAttribute("SDT") != null ? session.getAttribute("SDT") : "" %>';  // Phone number from session
-
 	  // Add event listener to the "Add to Cart" button
 	  document.getElementById('add-to-cart').addEventListener('click', function() {
 	    var quantity = document.getElementById('quantity').value;
@@ -374,13 +355,11 @@
 	    var quantity = document.getElementById('quantity').value; 
 	    var btn = "bn";
 	    selectBook(bookId, quantity, sdt, btn);
-	  });
-		
+	  });		
 	  // Function to redirect to a new servlet with query parameters
 	  function selectBook(bookId, quantity, sdt, btn) {
 	    // Build the URL with query parameters
 	    var url = '/Book/addcart?bookId=' + bookId + '&quantity=' + quantity + '&sdt=' + encodeURIComponent(sdt) + '&btn=' + btn;
-
 	    // Redirect to the new servlet
 	    window.location.href = url;
 	  }
@@ -407,8 +386,7 @@
       }
 		function LogOut() {
           window.location.href = 'Views/Form_Login.jsp';
-      }
-	  
+      }	  
 	</script>
 </body>
 </html>

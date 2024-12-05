@@ -8,10 +8,13 @@
     <title>Danh sách đơn mua</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Ẩn mũi tên xuống trên nút dropdown */
 		.dropdown-toggle::after {
     		display: none;
 		}  
+		body {
+  			background-color:  #f0f0f0;
+  			margin: 0; 
+		}
     </style>
 </head>
 <body>
@@ -45,7 +48,6 @@
 							<path
 									d="M 12 3 C 9.8027056 3 8 4.8027056 8 7 C 8 9.1972944 9.8027056 11 12 11 C 14.197294 11 16 9.1972944 16 7 C 16 4.8027056 14.197294 3 12 3 z M 12 5 C 13.116414 5 14 5.8835859 14 7 C 14 8.1164141 13.116414 9 12 9 C 10.883586 9 10 8.1164141 10 7 C 10 5.8835859 10.883586 5 12 5 z M 12 14 C 10.255047 14 8.1871638 14.409783 6.4492188 15.095703 C 5.5802462 15.438663 4.7946961 15.84605 4.1660156 16.369141 C 3.5373351 16.892231 3 17.599384 3 18.5 L 3 21 L 21 21 L 21 20 L 21 18.5 C 21 17.599384 20.462665 16.892231 19.833984 16.369141 C 19.205304 15.84605 18.419754 15.438663 17.550781 15.095703 C 15.812836 14.409783 13.744953 14 12 14 z M 12 16 C 13.414047 16 15.346055 16.373999 16.818359 16.955078 C 17.554512 17.245618 18.176961 17.591965 18.554688 17.90625 C 18.932412 18.220535 19 18.434616 19 18.5 L 19 19 L 5 19 L 5 18.5 C 5 18.434616 5.0675867 18.220535 5.4453125 17.90625 C 5.8230383 17.591965 6.4454882 17.245618 7.1816406 16.955078 C 8.6539455 16.373999 10.585953 16 12 16 z" /></svg>
 							<p class="fw-light m-0">Tài khoản</p> </a>
-						<!-- Dropdown menu -->
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
 							<li><a class="dropdown-item" onclick="CheckRole1('${SDT}', '${role}')">Quản lý sản phẩm</a></li>
 							<li><a class="dropdown-item" onclick="CheckRole2('${SDT}', '${role}')">Quản lý đơn bán</a></li>
@@ -57,9 +59,7 @@
 		</div>
 	</nav>
     <div class="container mt-3 mb-3 bg-white p-3 rounded shadow">
-        <h1 class="text-center mb-4">Danh sách đơn mua</h1>
-		
-        <!-- Hiển thị thông báo nếu không có dữ liệu -->
+        <h1 class="text-center mb-4">Danh sách đơn bán</h1>
         <c:if test="${not empty message}">
             <div class="alert alert-warning">${message}</div>
         </c:if>
@@ -77,12 +77,10 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Hiển thị danh sách đơn mua -->
                 <c:if test="${empty listDonMua}"> 
                     <tr><td colspan="7" class="text-center">Không có đơn mua nào.</td></tr>
                 </c:if>
                 <c:forEach var="item" items="${listDonMua}">
-				    <!-- Hàng chính hiển thị thông tin đơn mua -->
 				    <tr>
 				        <td>${item.maDon}</td>
 				        <td>${item.sDT}</td>
@@ -99,7 +97,6 @@
 				            </form>
 				        </td>
 				    </tr>
-				    <!-- Hàng chi tiết ẩn -->
 				    <tr id="details-${item.maDon}" style="display: none;">
 				        <td colspan="7">
 				            <table class="table table-sm table-bordered text-center">
@@ -113,12 +110,10 @@
 				                    </tr>
 				                </thead>
 				                <tbody id="chitietdh-${item.maDon}">
-				                    <!-- Dữ liệu chi tiết đơn hàng sẽ được thêm vào đây -->
 				                </tbody>
 				            </table>
 				        </td>
 				    </tr>
-				    <!-- Hàng chi tiết khách hàng ẩn -->
 				    <tr id="details-${item.sDT}" style="display: none;">
 				        <td colspan="7">
 				            <table class="table table-bordered table-striped text-center">
@@ -132,7 +127,6 @@
 				                    </tr>
 				                </thead>
 				                <tbody id="customerTable-${item.sDT}">
-				                    <!-- Dữ liệu khách hàng sẽ được thêm vào đây -->
 				                </tbody>
 				            </table>
 				        </td>
@@ -218,7 +212,6 @@
 			window.location.href = '/Book/ViewCart?sdt=' + sdt + '&pass=' + pass;
 
 		}
-
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>

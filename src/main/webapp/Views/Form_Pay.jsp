@@ -82,6 +82,12 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
+	<style>
+		body {
+  			background-color:  #f0f0f0;
+  			margin: 0; 
+		}
+	</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
@@ -101,7 +107,6 @@
 	</nav>
 	<div class="container mt-3 mb-3 bg-white p-3 rounded shadow">
 		<h1 class="text-center mt-1">Thanh toán</h1>
-		<!-- Tạo modal thủ công -->
 		<div id="customModal"
 			style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; background-color: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); padding: 20px; z-index: 1000;">
 			<h5>Thêm địa chỉ mới</h5>
@@ -119,7 +124,6 @@
 		</div>
 
 		<div class="container mt-3">
-			<!-- Phần chọn địa chỉ -->
 			<h4 class="mb-2">Chọn địa chỉ giao hàng</h4>
 			<div class="row g-3" id="addressContainer">
 				<c:forEach var="diaChi" items="${listAddress}">
@@ -142,11 +146,8 @@
 						<strong style="color: black; margin-top: 5px;">Thêm địa
 							chỉ</strong>
 					</button>
-
-
 				</div>
 			</div>
-
 			<div class="mt-3">
 				<h4>Chọn một phương thức giao hàng</h4>
 				<div class="border p-3 rounded p-3">
@@ -205,11 +206,8 @@
 						</ul>
 					</div>
 					<div class="mt-3">
-						<!-- Phí giao hàng -->
 						Phí giao hàng: <strong id="phiGiaoHang">0 VND</strong>
 					</div>
-
-					<!-- Tổng tiền -->
 					<div class="mt-3">
 						Thành tiền: <strong id="thanhTien">${tongGia} VND</strong>
 						<div class="text-end mt-3">
@@ -221,14 +219,11 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
-
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-cn7l7gDp0eyRaIEFaOIrn6UGoB3z7lQGp3lOmMLH/6Qm3jmZ6OwYMX23kIB3SL9l"
 		crossorigin="anonymous"></script>
 </body>
-
 </html>

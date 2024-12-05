@@ -19,6 +19,10 @@
 		.dropdown-toggle::after {
     		display: none;
 		}  
+		body {
+  			background-color:  #f0f0f0;
+  			margin: 0; 
+		}
     </style>
 </head>
 <body>
@@ -113,7 +117,7 @@
 				    <input type="hidden" id="imageName" name="nameimg">
 				</div>
 				<div class="col-md-3">
-				    <img id="currentImage" src="https://photo.znews.vn/w660/Uploaded/natmts/2023_02_03/z4080571344877_dcc05eb033d9e910039ad77df6eb1b05.jpg" class="img-thumbnail mt-3" style="width: 250px; height: 200px;">
+				    <img id="currentImage" src="https://photo.znews.vn/w660/Uploaded/natmts/2023_02_03/z4080571344877_dcc05eb033d9e910039ad77df6eb1b05.jpg" class="img-thumbnail mt-3" style="width: 200px; height: 250px;">
 				</div>
             </div>
 
