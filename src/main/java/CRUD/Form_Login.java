@@ -45,7 +45,8 @@ public class Form_Login extends HttpServlet {
                     if (rs.next()) {
                         // Đăng nhập thành công
                         HttpSession session = request.getSession();
-                        session.setAttribute("SDT", username); // Lưu số điện thoại vào session
+                        session.setAttribute("SDT", username);
+                        session.setAttribute("pass", password); 
                         response.sendRedirect(request.getContextPath() + "/read");
                     } else {
                         // Đăng nhập thất bại

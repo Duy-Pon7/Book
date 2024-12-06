@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.util.List;
 
@@ -32,29 +33,26 @@ public class Pay extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		float total = Float.parseFloat(request.getParameter("total"));
-		String phone = request.getParameter("phone");
+		float tongGia = Float.parseFloat(request.getParameter("tongGia"));
+		String sdt = request.getParameter("sdt");
+		String diaChi = request.getParameter("diaChi");
 		try {
 			Connection conn = Database.getConnection();
-			int maDon = DBUtils.Add_bill(conn, phone, total);
+			int maDon = DBUtils.Add_bill(conn, sdt, tongGia, diaChi);
 			boolean check = false;
 			if(maDon != -1) {
-				check = DBUtils.Add_InfBill(conn, phone, maDon);
+				check = DBUtils.Add_InfBill(conn, sdt, maDon);
 				if(check) {
-					check = DBUtils.DeleteAllCart(conn, phone);
+					check = DBUtils.DeleteAllCart(conn, sdt);
 				}
 			}
 			if(check) {
-				List<CartModel> list = DBUtils.LoadCart(conn, phone);
-				if(list == null) {
-					System.out.print("khong co du lieu");
-				}else {
-					request.setAttribute("listCart", list);
-					response.sendRedirect(request.getContextPath() + "/ViewCart");
-				}
+				request.setAttribute("sdt", sdt); 
+				response.sendRedirect(request.getContextPath() + "/ViewCart?sdt=" + URLEncoder.encode(sdt, "UTF-8"));
 			}else {
 				request.setAttribute("errorMessage", "Thanh toán không thành công!");
-				response.sendRedirect(request.getContextPath() + "/ViewCart");
+				request.setAttribute("sdt", sdt); 
+				response.sendRedirect(request.getContextPath() + "/ViewCart?sdt=" + URLEncoder.encode(sdt, "UTF-8"));
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
