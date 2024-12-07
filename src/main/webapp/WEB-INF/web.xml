@@ -109,4 +109,14 @@
     <servlet-name>Filter</servlet-name>
     <url-pattern>/Filter</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ThongKeServlet</display-name>
+    <servlet-name>ThongKeServlet</servlet-name>
+    <servlet-class>CRUD.ThongKeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ThongKeServlet</servlet-name>
+    <url-pattern>/ThongKeServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
