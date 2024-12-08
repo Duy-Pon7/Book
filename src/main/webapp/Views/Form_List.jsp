@@ -83,6 +83,7 @@ if (sdt == null) {
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
 							<li><a class="dropdown-item" onclick="CheckRole1('${SDT}', '${role}')">Quản lý sản phẩm</a></li>
 							<li><a class="dropdown-item" onclick="CheckRole2('${SDT}', '${role}')">Quản lý đơn bán</a></li>
+							<li><a class="dropdown-item" onclick="CheckRole3('${role}')">Thống kê</a></li>
 							<li><a class="dropdown-item" onclick="LogOut()">Đăng xuất</a></li>
 						</ul>
 					</div>
@@ -404,6 +405,13 @@ if (sdt == null) {
 		function CheckRole2(sdt, role) {
             if (role === 'Admin') {
             	window.location.href = '/Book/DonMua?sdt=' + sdt;
+            } else {
+                alert('Bạn không có quyền truy cập!');
+            }
+        }
+		function CheckRole3(role) {
+            if (role === 'Admin') {
+            	window.location.href = '/Book/thongKe';
             } else {
                 alert('Bạn không có quyền truy cập!');
             }

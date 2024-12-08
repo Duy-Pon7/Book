@@ -66,6 +66,7 @@
 								onclick="CheckRole1('${SDT}', '${role}')">Quản lý sản phẩm</a></li>
 							<li><a class="dropdown-item"
 								onclick="CheckRole2('${SDT}', '${role}')">Quản lý đơn bán</a></li>
+							<li><a class="dropdown-item" onclick="CheckRole3('${role}')">Thống kê</a></li>
 							<li><a class="dropdown-item" onclick="LogOut()">Đăng
 									xuất</a></li>
 						</ul>
@@ -383,6 +384,13 @@
           } else {
               alert('Bạn không có quyền truy cập!');
           }
+      }
+		function CheckRole3(role) {
+            if (role === 'Admin') {
+            	window.location.href = '/Book/thongKe';
+            } else {
+                alert('Bạn không có quyền truy cập!');
+            }
       }
 		function LogOut() {
           window.location.href = 'Views/Form_Login.jsp';
